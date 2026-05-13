@@ -1,233 +1,249 @@
-# 📦 Guia Completo: Gerar e Baixar APK do Aura
+# 📦 Como gerar e disponibilizar o APK do AURA — Guia visual passo a passo
 
-> Forma **mais fácil possível**, passo a passo, sem precisar instalar Android Studio.
-
----
-
-## 🎯 Por que não posso enviar o APK direto pra você?
-
-**Importante esclarecer**: o ambiente Emergent (onde o app foi desenvolvido) é um **servidor Linux na nuvem**, sem Android SDK / Java instalados. Gerar um APK exige um ambiente especializado de build.
-
-A **boa notícia** é que a Expo tem um serviço de build em nuvem **gratuito** chamado **EAS Build** que faz isso pra você em 10-15 minutos. Você só precisa:
-1. Baixar o projeto pro seu Mac
-2. Criar conta grátis em expo.dev
-3. Rodar **3 comandos** no terminal
-4. Receber um link público pra baixar o APK
+> **Para iniciantes!** Vou te guiar do zero ao APK no celular em 4 etapas simples.
 
 ---
 
-## 🧰 Pré-requisitos no seu Mac
-
-1. **Node.js 20+**
-   ```bash
-   node -v  # deve mostrar v20 ou superior
-   ```
-   Se não tiver: https://nodejs.org/
-
-2. **Yarn**
-   ```bash
-   npm install -g yarn
-   ```
-
-3. **Conta no Expo (grátis)**
-   - Crie em: https://expo.dev/signup
-   - Confirme o email
+## 🎯 O que você vai conseguir no final
+✅ Um arquivo `.apk` que qualquer pessoa pode baixar e instalar no Android
+✅ Um link público (do tipo `https://expo.dev/artifacts/eas/xxx.apk`) para colocar no site
+✅ O botão "Baixar APK" do seu site funcionando perfeitamente
 
 ---
 
-## 🚀 Passo a passo (do zero ao APK no celular)
+# 🏁 ETAPA 1 — Preparar seu Mac
 
-### 1️⃣ Baixe o projeto pro seu Mac
+Abra o **Terminal** (no Mac: Cmd+Espaço → digite "Terminal" → Enter).
 
-No Emergent, clique em **"Download Code"** ou **"Save to GitHub"** para obter o código. Depois descompacte numa pasta.
-
+### 1.1 Verifique se tem Node.js 20+
 ```bash
-cd ~/Desktop/aura-app/frontend  # ou onde você salvou
+node -v
+```
+Se aparecer algo como `v20.x.x`, ótimo! Se aparecer "command not found" ou versão antiga, baixe em https://nodejs.org/ (escolha a versão **LTS**).
+
+### 1.2 Instale o Yarn (se ainda não tiver)
+```bash
+npm install -g yarn
 ```
 
-### 2️⃣ Instale as dependências
+### 1.3 Crie sua conta grátis no Expo
+Abra no navegador: https://expo.dev/signup
+- Cadastre com email + senha (ou Google)
+- Confirme o email
+
+---
+
+# 🏁 ETAPA 2 — Configurar o projeto AURA
+
+### 2.1 Entre na pasta do projeto que você baixou
+```bash
+cd ~/Downloads/aura-app/frontend
+# OU onde você descompactou. Ajuste o caminho.
+```
+
+### 2.2 Instale as dependências
 ```bash
 yarn install
 ```
+☕ Aguarde 1-2 minutos.
 
-### 3️⃣ Configure o backend (.env)
-
-Edite `frontend/.env` apontando para o backend que vai consumir:
-
-**Para usar o backend hospedado no Emergent (mais fácil pra testar):**
-```bash
+### 2.3 Verifique o arquivo `.env`
+Abra o arquivo `frontend/.env` num editor de texto (TextEdit, VS Code...). Ele deve ter:
+```
 EXPO_PUBLIC_BACKEND_URL=https://b48aab4a-0894-4be8-a9ff-6a46dd524152.preview.emergentagent.com
 ```
 
-**Para usar backend próprio (quando publicar):**
-```bash
-EXPO_PUBLIC_BACKEND_URL=https://api.aura.app
-```
+Se vazio, cole essa linha. Pronto, salve.
 
-### 4️⃣ Instale o EAS CLI
+---
+
+# 🏁 ETAPA 3 — Gerar o APK na nuvem (gratuito!)
+
+### 3.1 Instale o EAS CLI
 ```bash
 npm install -g eas-cli
 ```
 
-### 5️⃣ Faça login no Expo
+### 3.2 Faça login no Expo
 ```bash
 eas login
 ```
-Digite seu email e senha do expo.dev.
+Digite o email e senha que você criou na Etapa 1.3.
 
-### 6️⃣ Configure o projeto EAS (primeira vez apenas)
-
-Dentro de `frontend/`:
+### 3.3 Configure o projeto (só na primeira vez)
 ```bash
 eas build:configure
 ```
-Aceite tudo com Enter. Isso vai:
-- Atualizar o `eas.json` (já está pronto no projeto)
-- Vincular seu projeto à sua conta Expo
-- Gerar um `projectId` único
+- Pergunta "What would you like your Android application id to be?" → aperte Enter (aceita `com.aura.cuidamais`)
+- Pergunta sobre iOS bundle id → aperte Enter
+- Pergunta sobre eas.json → diga **N** (já existe no projeto!)
 
-### 7️⃣ **Gere o APK** 🎉
+### 3.4 **GERE O APK!** 🚀
 ```bash
 eas build --platform android --profile preview
 ```
 
-O terminal vai mostrar:
-- ✅ Compactando código...
-- ✅ Enviando para servidores Expo...
-- ✅ Build na fila...
-- ✅ Build em progresso (~10-15 min)
-- ✅ **Build finished!**
-
-E vai te dar um link tipo:
+O que vai aparecer:
 ```
-https://expo.dev/accounts/seu-user/projects/aura-cuidamais/builds/xyz123
+✔ Linked to project @seu-usuario/aura-cuidamais
+✔ Using remote Android credentials (Expo server)
+✔ Build queued...
+✔ Build in progress... (10-15 min)
+✔ Build finished!
+
+🤖 Android app: https://expo.dev/accounts/seu-user/projects/aura-cuidamais/builds/abc123xyz
 ```
 
-### 8️⃣ Baixe o APK
-
-Abra o link no navegador. Você verá:
-- Status: ✅ Finished
-- Botão grande verde: **"Install"** ou **"Download"**
-- Um QR code que você pode escanear com o celular pra baixar direto
-
-Clique em **Download APK** → baixa um arquivo `.apk` (~50 MB).
-
-### 9️⃣ Instale no celular Android
-
-**No celular:**
-1. Transfira o APK (USB, Google Drive, WhatsApp pra si mesmo...)
-2. Abra o arquivo no celular
-3. Aparecerá: *"Instalação bloqueada por segurança"*
-4. Vá em **Configurações → Segurança → Permitir instalação de fontes desconhecidas** (varia por modelo) → permita pro app de Arquivos / Chrome
-5. Volte e clique no APK novamente → **Instalar**
-6. Pronto! Abra o app Aura na home do celular 🎉
+**☕ Aguarde 10-15 minutos.** Pode fechar o terminal e ir tomar um café. Quando voltar:
 
 ---
 
-## 🔗 Como compartilhar o APK por link (qualquer pessoa baixar)
+# 🏁 ETAPA 4 — Baixar e compartilhar o APK
 
-O link que o EAS te dá (`https://expo.dev/artifacts/eas/xxx.apk`) é **público**. Você pode:
+### 4.1 Abra o link que apareceu no terminal
+Algo como `https://expo.dev/accounts/seu-user/projects/aura-cuidamais/builds/abc123xyz`
 
-- Enviar por WhatsApp / Telegram / Email
-- Colar no site oficial (já está preparado em `website/script.js` — só substituir a constante `APK_URL`)
-- Postar nas redes sociais
-- Gerar QR code com https://www.qrcode-monkey.com/ apontando pro link
+### 4.2 Você verá a página do build
+- Status: ✅ **Finished**
+- Botão grande: **"Install"** ou **"Download"**
+- Tem um QR code também (legal pra escanear direto no celular!)
 
-Quem receber é só:
-1. Clicar no link
-2. Baixar o APK
-3. Habilitar fontes desconhecidas
-4. Instalar
+### 4.3 Pegue o LINK PÚBLICO do APK
+
+Há **DUAS formas**:
+
+**🔵 Forma A — Link direto do artifact (recomendado para o site):**
+- Na página do build, role para baixo
+- Procure "Artifacts" ou clique com botão direito no botão Download → "Copiar endereço do link"
+- O link tem essa cara: `https://expo.dev/artifacts/eas/abc123xyz.apk`
+- ✅ **Esse é o link que vai no site!**
+
+**🔵 Forma B — Página de instalação (pra compartilhar por WhatsApp):**
+- O próprio link da página do build (`https://expo.dev/accounts/.../builds/abc123`) é público
+- Quem abrir, vê o botão Download
+- Use esse pra compartilhar com pessoas comuns
+
+### 4.4 Instalar no seu Android (teste pessoal)
+1. Abra o link no celular Android
+2. Toque em **Download**
+3. Quando terminar, abra o arquivo `.apk`
+4. Vai aparecer "Bloqueado por segurança"
+5. Vá em **Configurações → Segurança → Permitir instalação de fontes desconhecidas**
+6. Volte e toque no APK novamente → **Instalar**
+7. 🎉 Pronto! O **Aura** está no celular!
 
 ---
 
-## 🌐 Conectar o APK ao site
+# 🌐 ETAPA 5 — Colocar o link no site
 
-Depois que o build terminar:
+Agora a parte mais legal: deixar o botão "Baixar APK" do seu site funcionando.
 
-1. Copie o link público do APK (botão "Download" no expo.dev → copiar URL)
-2. Abra `website/script.js`
-3. Encontre a linha:
-   ```js
-   const APK_URL = window.AURA_APK_URL || '';
-   ```
-4. Substitua por:
-   ```js
-   const APK_URL = window.AURA_APK_URL || 'https://expo.dev/artifacts/eas/SEU_LINK.apk';
-   ```
-5. Republique o site (vercel deploy / netlify / github pages)
+### 5.1 Abra o arquivo `website/script.js`
+No seu editor de texto favorito.
 
-Pronto! O botão "Baixar APK" no site agora baixa o arquivo diretamente.
+### 5.2 Procure essa linha (perto da linha 47):
+```js
+const APK_URL = window.AURA_APK_URL || ''; // 👉 cole o link aqui quando o build terminar
+```
 
----
+### 5.3 Substitua a string vazia pelo seu link
+**Antes:**
+```js
+const APK_URL = window.AURA_APK_URL || '';
+```
 
-## 🍎 E pra iOS?
+**Depois (exemplo):**
+```js
+const APK_URL = window.AURA_APK_URL || 'https://expo.dev/artifacts/eas/abc123xyz.apk';
+```
 
-Diferente do Android, a Apple **exige conta paga de desenvolvedor ($99/ano)**.
+⚠️ **Importante**: mantenha as aspas! Cole APENAS o link, sem `<>` ou outros caracteres.
 
-### Opção 1: Testar no Simulator (grátis, só no Mac)
+### 5.4 Salve o arquivo
+Pronto! Agora o botão "Baixar APK" no site:
+- ✅ Não mostra mais "Em breve"
+- ✅ Ao clicar, baixa o arquivo diretamente
+- ✅ Funciona em celular e desktop
+
+### 5.5 Republique o site (se já estava no ar)
+**Se estiver no Vercel:**
 ```bash
-eas build --platform ios --profile preview
-```
-Isso gera um `.tar.gz` que você roda no Xcode Simulator.
-
-### Opção 2: TestFlight (recomendado para distribuir beta)
-1. Criar conta Apple Developer ($99/ano): https://developer.apple.com/programs/
-2. ```bash
-   eas build --platform ios --profile production
-   eas submit --platform ios
-   ```
-3. Convide até 10.000 testers por email no TestFlight
-
-### Opção 3: App Store oficial
-Mesmo fluxo do TestFlight, mas passa pela review da Apple (~24-48h).
-
----
-
-## ❓ Diferenças entre Expo Go, APK, build de produção e loja
-
-| Modalidade | Para quê serve | Custo | Tempo |
-|---|---|---|---|
-| **Expo Go** | Testar durante desenvolvimento (precisa do app Expo Go instalado) | Grátis | ⚡ Instantâneo |
-| **APK preview (EAS)** | Compartilhar com pessoas via link, instalar manualmente | Grátis | 🐢 10-15 min |
-| **APK/AAB produção** | Publicar na Google Play Store | Grátis (taxa Play: $25 únicos) | 🐢 10-15 min |
-| **iOS Simulator build** | Testar no Mac sem iPhone | Grátis | 🐢 10-15 min |
-| **iOS TestFlight** | Distribuir beta no iPhone real | $99/ano | 🐢 15-30 min + review |
-| **Apple App Store** | Loja oficial Apple | $99/ano | 🐢 + review Apple |
-
----
-
-## 🐛 Problemas comuns
-
-| Erro | Solução |
-|---|---|
-| `eas: command not found` | `npm install -g eas-cli` |
-| Build falha com `Cannot find name 'projectId'` | Rode `eas init` antes do build |
-| APK abre tela branca | Confira se `EXPO_PUBLIC_BACKEND_URL` no `.env` está acessível pela internet (não localhost) |
-| Login não funciona no APK instalado | Backend precisa estar online + URL no .env precisa ser HTTPS pública |
-| Build muito demorado | Plano grátis tem fila — geralmente até 30 min. Plano pago é instantâneo |
-
----
-
-## 🎓 Próximo nível: Builds automáticos
-
-Quer que toda vez que você fizer commit no GitHub o APK seja gerado automaticamente? Configure GitHub Actions com:
-```yaml
-# .github/workflows/eas-build.yml
-on: push
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
-      - run: cd frontend && eas build --platform android --profile preview --non-interactive
+cd website
+vercel --prod
 ```
 
+**Se estiver no Netlify:**
+Arraste a pasta `website/` no painel novamente.
+
+**Se estiver no GitHub Pages:**
+Faça commit + push do arquivo `script.js`.
+
 ---
 
-**Feito com 💜 pela equipe Aura**
-*Cuidar de quem você ama faz tudo valer mais.*
+# 📲 Como compartilhar o APK com outras pessoas
+
+Você tem **3 formas** após o link estar pronto:
+
+### 1. Site oficial (depois do passo 5 acima)
+Quem acessar `aura.app` (ou onde você hospedou) clica em "Baixar APK" e baixa.
+
+### 2. WhatsApp / Telegram / Email
+Cole o link direto na mensagem. Ex:
+```
+Oi! Esse é o link pra baixar o Aura no Android:
+https://expo.dev/artifacts/eas/abc123xyz.apk
+
+Instruções:
+1. Toque no link
+2. Baixe o APK
+3. Abra o arquivo no celular
+4. Aceite "Fontes desconhecidas" se pedir
+5. Pronto! 💜
+```
+
+### 3. QR Code (para feiras, eventos, cards)
+- Acesse https://www.qrcode-monkey.com/
+- Cole o link do APK
+- Baixe o QR code em PNG
+- Use em flyers, cards, etc.
+
+---
+
+# ❓ Perguntas comuns
+
+### "E se o build der erro?"
+A maioria dos erros é por causa do `.env`. Verifique se `EXPO_PUBLIC_BACKEND_URL` está preenchido. Se der erro de "projectId", rode `eas init` antes do build.
+
+### "Quanto tempo o link do APK fica disponível?"
+Builds **gratuitos**: ficam disponíveis por **30 dias**.
+Plano pago Expo: ficam pra sempre.
+👉 Recomendação: depois que gerar, baixe o `.apk` e suba pro seu próprio servidor (Google Drive, AWS S3, GitHub Releases) para ter controle.
+
+### "Quantos APKs gratuitos posso gerar?"
+30 builds por mês no plano gratuito. Mais que suficiente pra testar.
+
+### "O APK funciona offline?"
+Funciona o jogo da memória e sons. As outras funções (SOS, lembretes, localização, chat) precisam de internet.
+
+### "Posso publicar na Google Play?"
+Sim! Mas você precisa:
+1. Pagar taxa única de $25 no Google Play Console
+2. Rodar `eas build --platform android --profile production` (gera `.aab` em vez de `.apk`)
+3. Subir o `.aab` no Play Console
+4. Aguardar a review (~24h)
+
+---
+
+# 🆘 Precisa de ajuda?
+
+Se algo der errado:
+1. Verifique se está na pasta correta (`cd frontend`)
+2. Rode `yarn install` de novo
+3. Tente `eas build --platform android --profile preview --clear-cache`
+4. Se persistir, copie o erro completo e busque no Discord oficial da Expo: https://chat.expo.dev/
+
+---
+
+**🌟 Pronto! Você já tem seu app Aura instalável no Android!**
+
+*Cuidar de quem você ama faz tudo valer mais.* 💜

@@ -732,3 +732,154 @@ button { border: 0; background: none; cursor: pointer; font: inherit; }
   .footer__container { grid-template-columns: 1fr; }
   .phone--back { display: none; }
 }
+
+/* ===== Modal "Em breve / Lista de espera" ===== */
+#auraModal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: auraModalIn .25s ease-out;
+}
+#auraModal.aura-modal--closing { animation: auraModalOut .2s ease-in forwards; }
+@keyframes auraModalIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes auraModalOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+.aura-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.aura-modal__card {
+  position: relative;
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 36px 32px 28px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(91, 33, 182, 0.35), 0 0 80px rgba(236, 72, 153, 0.25);
+  animation: auraCardIn .35s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes auraCardIn {
+  from { transform: scale(.85) translateY(20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+.aura-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  font-size: 22px;
+  color: var(--text-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+.aura-modal__close:hover { background: var(--border); transform: rotate(90deg); }
+.aura-modal__icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 16px;
+  border-radius: 24px;
+  background: var(--grad-aura);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  box-shadow: var(--shadow-glow);
+}
+.aura-modal__title {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -.5px;
+  margin-bottom: 8px;
+  color: var(--navy);
+}
+.aura-modal__text {
+  font-size: 15px;
+  color: var(--text-2);
+  margin-bottom: 22px;
+  line-height: 1.55;
+}
+.aura-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.aura-modal__input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--border);
+  font-family: inherit;
+  font-size: 15px;
+  background: var(--bg-soft);
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s ease, background .2s ease;
+}
+.aura-modal__input:focus {
+  border-color: var(--purple);
+  background: #fff;
+}
+.aura-modal__btn {
+  background: var(--grad-aura);
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.aura-modal__btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.aura-modal__hint {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 14px;
+}
+.aura-modal__success { padding: 10px 0; }
+.aura-modal__check {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: #fff;
+  font-size: 32px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: checkPop .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes checkPop {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+.aura-modal__success h4 {
+  font-size: 19px;
+  margin-bottom: 6px;
+  color: var(--navy);
+}
+.aura-modal__success p {
+  font-size: 14px;
+  color: var(--text-2);
+}

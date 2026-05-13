@@ -3,8 +3,6 @@ import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
 import Animated, {
-  FadeIn,
-  FadeInUp,
   useSharedValue,
   useAnimatedStyle,
   withRepeat,
@@ -17,7 +15,7 @@ import { useAuth } from '../lib/auth';
 import { colors, fonts, fontSizes } from '../lib/theme';
 import { sounds } from '../lib/sounds';
 
-const LOGO = require('../assets/images/aura-logo.jpg');
+const LOGO = require('../assets/images/aura-logo.png');
 
 export default function Index() {
   const router = useRouter();
@@ -57,12 +55,12 @@ export default function Index() {
       <AuraBackground variant="hero" />
       <View style={styles.center}>
         <Animated.View style={[styles.halo, haloStyle]} />
-        <Animated.View entering={FadeIn.duration(700)} style={styles.logoCircle}>
+        <View style={styles.logoCircle}>
           <Image source={LOGO} style={styles.logo} accessibilityLabel="Aura logo" />
-        </Animated.View>
-        <Animated.Text entering={FadeInUp.delay(400).duration(600)} style={styles.slogan}>
+        </View>
+        <Text style={styles.slogan}>
           Cuidar de quem você <Text style={styles.sloganAccent}>ama</Text> faz tudo valer mais.
-        </Animated.Text>
+        </Text>
       </View>
     </View>
   );
@@ -80,9 +78,9 @@ const styles = StyleSheet.create({
     ...(Platform.OS === 'web' ? { filter: 'blur(70px)' as any } : { opacity: 0.45 }),
   },
   logoCircle: {
-    width: 200,
-    height: 200,
-    borderRadius: 44,
+    width: 220,
+    height: 220,
+    borderRadius: 48,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
@@ -93,7 +91,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     elevation: 18,
   },
-  logo: { width: 180, height: 180, resizeMode: 'contain' },
+  logo: { width: 200, height: 200, resizeMode: 'contain' },
   slogan: {
     fontFamily: fonts.medium,
     fontSize: fontSizes.base,

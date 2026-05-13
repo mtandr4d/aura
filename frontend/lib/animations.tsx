@@ -115,11 +115,15 @@ export const SlideUpView = ({
   delay?: number;
   children: React.ReactNode;
   style?: ViewStyle | ViewStyle[];
-}) => (
-  <Animated.View entering={FadeInUp.delay(delay).duration(500).springify().damping(16)} style={style as any}>
-    {children}
-  </Animated.View>
-);
+}) =>
+  // No web, evitamos `entering` para garantir que o conteúdo apareça imediatamente
+  Platform.OS === 'web' ? (
+    <View style={style as any}>{children}</View>
+  ) : (
+    <Animated.View entering={FadeInUp.delay(delay).duration(500).springify().damping(16)} style={style as any}>
+      {children}
+    </Animated.View>
+  );
 
 export const SlideDownView = ({
   delay = 0,
@@ -129,11 +133,14 @@ export const SlideDownView = ({
   delay?: number;
   children: React.ReactNode;
   style?: ViewStyle | ViewStyle[];
-}) => (
-  <Animated.View entering={FadeInDown.delay(delay).duration(500).springify().damping(16)} style={style as any}>
-    {children}
-  </Animated.View>
-);
+}) =>
+  Platform.OS === 'web' ? (
+    <View style={style as any}>{children}</View>
+  ) : (
+    <Animated.View entering={FadeInDown.delay(delay).duration(500).springify().damping(16)} style={style as any}>
+      {children}
+    </Animated.View>
+  );
 
 // Used to wrap each sibling in a list for staggered entrance
 export function StaggerList({

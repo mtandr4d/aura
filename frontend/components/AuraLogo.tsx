@@ -15,7 +15,7 @@ interface Props {
 //   - size only          → mostra apenas o ícone do coração (recortado da imagem inteira via aspectRatio fixo)
 //   - showWordmark       → mostra a imagem inteira (logo + "aura" + slogan)
 //   - showSlogan (custom)→ texto do slogan abaixo com a palavra "ama" em rosa
-const FULL_LOGO = require('../assets/images/aura-logo.jpg');
+const FULL_LOGO = require('../assets/images/aura-logo.png');
 
 export function AuraLogo({ size = 84, showWordmark = false, showSlogan = false, light = false }: Props) {
   if (showWordmark) {
