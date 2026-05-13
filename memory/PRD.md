@@ -39,12 +39,16 @@ Reformular COMPLETAMENTE o app React Native/Expo (cuidamais) com a identidade vi
 - ✅ **Settings** (`settings.tsx`) — perfil avatar gradient, toggle de sons, logout
 - ✅ **app.json** atualizado para "Aura", bundleId `com.aura.cuidamais`, ícone roxo
 - ✅ **eas.json** com perfis preview (APK) e production (AAB)
-- ✅ **Logo OFICIAL da marca** salva em assets/images/aura-logo.jpg + icon/adaptive-icon/splash-icon PNG
-- ✅ **Backend** auth registration/login/me/link funcionando 100% (testado via curl)
-- ✅ **Site de divulgação** completo em `/app/website` (index.html + styles.css + script.js)
-   - Hero impactante, Sobre, Benefícios (3 personas), Alzheimer, Funcionalidades (8), Memory Game, Depoimentos, Download, Segurança, FAQ (6), Footer
-- ✅ **GUIA_APK.md** com passo a passo completo para gerar APK via EAS Build
-- ✅ **README.md** com instruções de execução e build
+- ✅ **Logo OFICIAL da marca** (versão atualizada) salva em assets/images
+- ✅ **Backend** auth registration/login/me/link funcionando 100%
+- ✅ **Site de divulgação v2 (DARK PREMIUM)** em `/app/website`
+   - Tema escuro com fundo navy + gradientes profundos
+   - Logo em destaque com efeito glow + ring rotativo + chips flutuantes
+   - Wordmark "aura" com último "a" em gradiente rosa→laranja
+   - 13 seções: Nav, Hero, Sobre, Benefícios, Alzheimer, Funcionalidades, Memory Game, Depoimentos, Download, Segurança, FAQ, Footer
+   - Modal "Em breve" para lista de espera do APK
+   - 100% responsivo
+- ✅ **GUIA_APK.md** + **APK_LINK.md** com passo a passo claro para gerar APK
 
 ## Backlog (P1)
 - Verificar visualmente o site (atualmente só dá pra preview localmente)
