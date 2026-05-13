@@ -42,8 +42,11 @@ export function PressableScale({
     if (haptic === 'heavy') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
   };
 
+  // IMPORTANTE: usamos Pressable normal + Animated.View interno.
+  // O `AnimatedPressable` (createAnimatedComponent + transform) tem bug conhecido
+  // em production builds Android que bloqueia toques em formulários e botões.
   return (
-    <AnimatedPressable
+    <Pressable
       {...rest}
       onPressIn={(e) => {
         scale.value = withSpring(scaleTo, { damping: 15, stiffness: 300 });
@@ -55,10 +58,12 @@ export function PressableScale({
         onPressOut?.(e);
       }}
       onPress={onPress}
-      style={[animStyle, style as any]}
+      style={style as any}
     >
-      {children as any}
-    </AnimatedPressable>
+      <Animated.View style={animStyle} pointerEvents="box-none">
+        {children as any}
+      </Animated.View>
+    </Pressable>
   );
 }
 
@@ -116,13 +121,15 @@ export const SlideUpView = ({
   children: React.ReactNode;
   style?: ViewStyle | ViewStyle[];
 }) =>
-  // No web, evitamos `entering` para garantir que o conteúdo apareça imediatamente
-  Platform.OS === 'web' ? (
-    <View style={style as any}>{children}</View>
-  ) : (
-    <Animated.View entering={FadeInUp.delay(delay).duration(500).springify().damping(16)} style={style as any}>
+  // Em web e Android usamos View simples para garantir que touches funcionem corretamente.
+  // springify() do reanimated tem bugs conhecidos em production builds Android que bloqueiam
+  // eventos de toque em inputs e botões dentro do Animated.View.
+  Platform.OS === 'ios' ? (
+    <Animated.View entering={FadeInUp.delay(delay).duration(450)} style={style as any}>
       {children}
     </Animated.View>
+  ) : (
+    <View style={style as any}>{children}</View>
   );
 
 export const SlideDownView = ({
@@ -134,12 +141,12 @@ export const SlideDownView = ({
   children: React.ReactNode;
   style?: ViewStyle | ViewStyle[];
 }) =>
-  Platform.OS === 'web' ? (
-    <View style={style as any}>{children}</View>
-  ) : (
-    <Animated.View entering={FadeInDown.delay(delay).duration(500).springify().damping(16)} style={style as any}>
+  Platform.OS === 'ios' ? (
+    <Animated.View entering={FadeInDown.delay(delay).duration(450)} style={style as any}>
       {children}
     </Animated.View>
+  ) : (
+    <View style={style as any}>{children}</View>
   );
 
 // Used to wrap each sibling in a list for staggered entrance

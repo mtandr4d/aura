@@ -15,7 +15,7 @@ import { useAuth } from '../lib/auth';
 import { colors, fonts, fontSizes } from '../lib/theme';
 import { sounds } from '../lib/sounds';
 
-const LOGO = require('../assets/images/aura-logo.png');
+const LOGO = require('../assets/images/aura-heart.png');
 
 export default function Index() {
   const router = useRouter();
@@ -78,20 +78,13 @@ const styles = StyleSheet.create({
     ...(Platform.OS === 'web' ? { filter: 'blur(70px)' as any } : { opacity: 0.45 }),
   },
   logoCircle: {
-    width: 220,
-    height: 220,
-    borderRadius: 48,
-    backgroundColor: '#fff',
+    width: 240,
+    height: 240,
     alignItems: 'center',
     justifyContent: 'center',
-    overflow: 'hidden',
-    shadowColor: '#EC4899',
-    shadowOpacity: 0.55,
-    shadowRadius: 40,
-    shadowOffset: { width: 0, height: 0 },
-    elevation: 18,
+    // Sem fundo branco — coração transparente conversando com o gradiente
   },
-  logo: { width: 200, height: 200, resizeMode: 'contain' },
+  logo: { width: 220, height: 220, resizeMode: 'contain' },
   slogan: {
     fontFamily: fonts.medium,
     fontSize: fontSizes.base,

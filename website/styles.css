@@ -812,6 +812,12 @@ button { border: 0; background: none; cursor: pointer; font: inherit; color: inh
   letter-spacing: 1px;
   border: 1px solid rgba(255, 138, 0, 0.4);
 }
+.dl-card__badge--ready {
+  background: rgba(0, 184, 148, 0.25);
+  color: #6EE7B7;
+  border-color: rgba(0, 184, 148, 0.45);
+  box-shadow: 0 0 20px rgba(0, 184, 148, 0.3);
+}
 .download__note {
   max-width: 640px;
   margin: 0 auto;

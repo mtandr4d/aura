@@ -36,13 +36,11 @@
   // ============================================================
   // 📦 APK DOWNLOAD — Configuração
   // ------------------------------------------------------------
-  // Quando você gerar o APK pelo EAS Build, copie o link público
-  // (ex: https://expo.dev/artifacts/eas/abc123.apk) e cole abaixo
-  // na variável APK_URL. Republique o site e pronto!
-  //
-  // Alternativa: pode definir window.AURA_APK_URL antes deste script.
+  // Link público do build do EAS (versão 2.0.0)
+  // Para atualizar quando gerar um novo build, basta substituir
+  // a string abaixo pelo novo link do expo.dev.
   // ============================================================
-  const APK_URL = window.AURA_APK_URL || ''; // 👉 cole o link aqui quando o build terminar
+  const APK_URL = window.AURA_APK_URL || 'https://expo.dev/accounts/mtandrad/projects/aura-cuidamais/builds/6c819fe9-c11d-4bfc-81b1-9ba7d367727d';
 
   const apkBtn = document.getElementById('apkDownload');
   if (apkBtn) {
