@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aura — Cuidar de quem você ama faz tudo valer mais</title>
+  <meta name="description" content="Aura é o app que conecta idosos, cuidadores e familiares com carinho, segurança e tecnologia. Lembretes, SOS, localização, exercícios para a memória e muito mais." />
+  <meta property="og:title" content="Aura — Cuidar de quem você ama faz tudo valer mais" />
+  <meta property="og:description" content="App premium para cuidado de idosos, com SOS, lembretes inteligentes, jogo da memória e acompanhamento familiar." />
+  <meta property="og:image" content="./aura-brand.jpg" />
+  <link rel="icon" href="./aura-logo.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="nav__container">
+      <a href="#home" class="nav__brand">
+        <img src="./aura-logo.png" alt="Aura" class="nav__logo" />
+        <span class="nav__name">aura</span>
+      </a>
+      <nav class="nav__links" aria-label="Principal">
+        <a href="#sobre">Sobre</a>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#funcionalidades">Funcionalidades</a>
+        <a href="#memoria">Memória</a>
+        <a href="#download">Download</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a href="#download" class="btn btn--primary btn--small">Baixar app</a>
+      <button class="nav__burger" id="navBurger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero__orbs" aria-hidden="true">
+      <div class="orb orb--purple"></div>
+      <div class="orb orb--pink"></div>
+      <div class="orb orb--orange"></div>
+    </div>
+    <div class="hero__container">
+      <div class="hero__left">
+        <div class="badge">
+          <span class="badge__dot"></span> Novo • App de cuidado premium
+        </div>
+        <h1 class="hero__title">
+          Cuidar de quem você <span class="grad-text">ama</span><br/>
+          faz tudo <span class="grad-text">valer mais</span>.
+        </h1>
+        <p class="hero__sub">
+          Aura conecta idosos, cuidadores e famílias com carinho e tecnologia.
+          Lembretes inteligentes, botão de SOS, localização em tempo real e exercícios para a memória — tudo em um só lugar.
+        </p>
+        <div class="hero__cta">
+          <a href="#download" class="btn btn--primary btn--large">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 16l-5-6h3V4h4v6h3l-5 6zM4 18h16v2H4v-2z" fill="currentColor"/></svg>
+            Baixar agora
+          </a>
+          <a href="#funcionalidades" class="btn btn--ghost btn--large">
+            Conhecer o app
+            <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <div class="hero__trust">
+          <div class="trust__item">
+            <strong>+10 mil</strong><span>famílias cuidando</span>
+          </div>
+          <div class="trust__divider"></div>
+          <div class="trust__item">
+            <strong>4.9 ★</strong><span>avaliação média</span>
+          </div>
+          <div class="trust__divider"></div>
+          <div class="trust__item">
+            <strong>100%</strong><span>privacidade</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__right">
+        <div class="phone">
+          <div class="phone__notch"></div>
+          <div class="phone__screen">
+            <div class="phone__bg"></div>
+            <div class="phone__content">
+              <img src="./aura-logo.png" alt="Aura logo" class="phone__logo" />
+              <h3 class="phone__brand">aura</h3>
+              <p class="phone__slogan">Cuidar de quem você <span>ama</span> faz tudo valer mais.</p>
+
+              <div class="phone__card">
+                <div class="phone__card-row">
+                  <span class="phone__icon phone__icon--pink">❤</span>
+                  <div>
+                    <small>Próximo remédio</small>
+                    <strong>Losartana 50mg</strong>
+                    <span class="phone__time">08:30</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="phone__sos">
+                <span class="phone__sos-pulse"></span>
+                S O S
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="phone phone--back">
+          <div class="phone__notch"></div>
+          <div class="phone__screen phone__screen--alt">
+            <div class="phone__memory">
+              <h4>Exercícios da Memória</h4>
+              <div class="memory-grid">
+                <div class="mem-card">🌻</div>
+                <div class="mem-card mem-card--flipped">?</div>
+                <div class="mem-card">🐶</div>
+                <div class="mem-card mem-card--flipped">?</div>
+                <div class="mem-card mem-card--match">🍎</div>
+                <div class="mem-card mem-card--match">🍎</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="section" id="sobre">
+    <div class="section__container">
+      <span class="kicker">O que é o Aura</span>
+      <h2 class="section__title">Tecnologia que abraça com carinho.</h2>
+      <p class="section__lead">
+        O Aura nasceu de uma necessidade real: cuidar de quem amamos quando não podemos estar perto.
+        Unimos <strong>amor, pessoas e proteção</strong> em um aplicativo simples, intuitivo e profundamente humano.
+      </p>
+
+      <div class="meaning">
+        <div class="meaning__item">
+          <div class="meaning__icon meaning__icon--purple">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 21s-7-4.35-7-10.5C5 7.5 7.5 5 10.5 5 12 5 13.04 5.81 12 7c-1.04-1.19 0-2 1.5-2C16.5 5 19 7.5 19 10.5 19 16.65 12 21 12 21z"/></svg>
+          </div>
+          <h4>Amor</h4>
+          <p>O que nos conecta</p>
+        </div>
+        <span class="meaning__plus">+</span>
+        <div class="meaning__item">
+          <div class="meaning__icon meaning__icon--pink">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
+          <h4>Pessoas</h4>
+          <p>Relações que importam</p>
+        </div>
+        <span class="meaning__plus">+</span>
+        <div class="meaning__item">
+          <div class="meaning__icon meaning__icon--orange">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </div>
+          <h4>Proteção</h4>
+          <p>Segurança e apoio</p>
+        </div>
+        <span class="meaning__equals">=</span>
+        <div class="meaning__item">
+          <img src="./aura-logo.png" alt="Aura" class="meaning__logo" />
+          <h4 class="grad-text">Aura</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="section section--alt" id="beneficios">
+    <div class="section__container">
+      <span class="kicker">Benefícios</span>
+      <h2 class="section__title">Pensado para quem cuida e para quem é cuidado.</h2>
+
+      <div class="cards">
+        <article class="card card--idoso">
+          <div class="card__icon"><span>👵</span></div>
+          <h3>Para o idoso</h3>
+          <ul>
+            <li>Botão SOS gigante e fácil de tocar</li>
+            <li>Lembretes claros de remédios</li>
+            <li>Tela simples, sem distrações</li>
+            <li>Exercícios para estimular a memória</li>
+            <li>Confiança de não estar sozinho</li>
+          </ul>
+        </article>
+
+        <article class="card card--cuidador">
+          <div class="card__icon"><span>🩺</span></div>
+          <h3>Para o cuidador</h3>
+          <ul>
+            <li>Agenda completa de medicamentos</li>
+            <li>Reportar incidentes em segundos</li>
+            <li>Chat com a família</li>
+            <li>Histórico de cuidados detalhado</li>
+            <li>Profissionalização do trabalho</li>
+          </ul>
+        </article>
+
+        <article class="card card--familia">
+          <div class="card__icon"><span>👨‍👩‍👧</span></div>
+          <h3>Para a família</h3>
+          <ul>
+            <li>Localização em tempo real</li>
+            <li>Notificações de SOS imediatas</li>
+            <li>Acompanhamento à distância</li>
+            <li>Solicitar visitas profissionais</li>
+            <li>Tranquilidade no dia a dia</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALZHEIMER -->
+  <section class="section section--dark" id="alzheimer">
+    <div class="section__container">
+      <div class="alz">
+        <div class="alz__left">
+          <span class="kicker kicker--light">Cuidado inteligente</span>
+          <h2 class="section__title section__title--light">
+            Alzheimer não precisa<br/>caminhar sozinho.
+          </h2>
+          <p class="section__lead section__lead--light">
+            Estudos mostram que estímulos cognitivos diários podem retardar o avanço de doenças como Alzheimer.
+            Por isso o Aura traz <strong class="grad-text">exercícios para a memória</strong>, cartas grandes, sons suaves e níveis progressivos — sempre acolhedores.
+          </p>
+          <ul class="alz__list">
+            <li>✦ Estimulação leve e diária</li>
+            <li>✦ Interface acessível para idosos</li>
+            <li>✦ Feedback positivo e encorajador</li>
+            <li>✦ Acompanhamento de progresso</li>
+          </ul>
+        </div>
+        <div class="alz__right">
+          <div class="stat">
+            <strong>+35%</strong>
+            <span>de estímulo cognitivo<br/>com 10 min por dia*</span>
+          </div>
+          <div class="stat stat--alt">
+            <strong>3 níveis</strong>
+            <span>Fácil · Médio · Difícil<br/>cresça no seu ritmo</span>
+          </div>
+          <div class="stat stat--alt2">
+            <strong>0 stress</strong>
+            <span>Sem pressão, sem cronômetro.<br/>Apenas carinho.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNCIONALIDADES -->
+  <section class="section" id="funcionalidades">
+    <div class="section__container">
+      <span class="kicker">Funcionalidades</span>
+      <h2 class="section__title">Tudo o que importa em um único app.</h2>
+
+      <div class="features">
+        <div class="feat"><div class="feat__icon feat__icon--purple">🗓️</div><h4>Organização de rotinas</h4><p>Medicamentos, refeições e atividades sempre na hora certa.</p></div>
+        <div class="feat"><div class="feat__icon feat__icon--pink">🔔</div><h4>Lembretes inteligentes</h4><p>Notificações claras que ajudam idosos a não esquecerem nada.</p></div>
+        <div class="feat"><div class="feat__icon feat__icon--orange">👥</div><h4>Acompanhamento</h4><p>Cuidadores e familiares vendo tudo em tempo real.</p></div>
+        <div class="feat"><div class="feat__icon feat__icon--teal">🛡️</div><h4>Segurança e SOS</h4><p>Um toque chama ajuda. A família é avisada na hora.</p></div>
+        <div class="feat"><div class="feat__icon feat__icon--purple">📍</div><h4>Localização</h4><p>Saiba onde quem você ama está, com privacidade total.</p></div>
+        <div class="feat"><div class="feat__icon feat__icon--pink">🧠</div><h4>Exercícios da memória</h4><p>Jogos divertidos que estimulam o cérebro todos os dias.</p></div>
+        <div class="feat"><div class="feat__icon feat__icon--orange">💬</div><h4>Chat familiar</h4><p>Mensagens entre cuidadores e responsáveis, organizadas.</p></div>
+        <div class="feat"><div class="feat__icon feat__icon--teal">📈</div><h4>Evolução e bem-estar</h4><p>Histórico de cuidado para entender padrões e melhorar.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMORIA -->
+  <section class="section section--gradient" id="memoria">
+    <div class="section__container memory-section">
+      <div>
+        <span class="kicker kicker--light">Jogo da Memória</span>
+        <h2 class="section__title section__title--light">Cuide do coração e da mente.</h2>
+        <p class="section__lead section__lead--light">
+          Cartas grandes, ícones amigáveis e sons suaves. Um jogo pensado para idosos
+          e pacientes de Alzheimer estimularem memória e raciocínio sem pressão.
+        </p>
+        <ul class="memory-points">
+          <li><strong>3 níveis</strong> · do fácil ao desafiador</li>
+          <li><strong>Feedback positivo</strong> a cada acerto</li>
+          <li><strong>Sons opcionais</strong> e acolhedores</li>
+          <li><strong>Acessibilidade</strong> para visão e toque</li>
+        </ul>
+        <a href="#download" class="btn btn--white btn--large">
+          Quero experimentar
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="memory-board">
+        <div class="memory-grid memory-grid--large">
+          <div class="mem-card">🌻</div>
+          <div class="mem-card mem-card--match">🐶</div>
+          <div class="mem-card mem-card--match">🐶</div>
+          <div class="mem-card">🍎</div>
+          <div class="mem-card mem-card--flipped">?</div>
+          <div class="mem-card">🌈</div>
+          <div class="mem-card mem-card--match">⭐</div>
+          <div class="mem-card mem-card--match">⭐</div>
+          <div class="mem-card mem-card--flipped">?</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="section" id="depoimentos">
+    <div class="section__container">
+      <span class="kicker">Quem usa, recomenda</span>
+      <h2 class="section__title">Histórias que tocam o coração.</h2>
+
+      <div class="testi">
+        <article class="testi__card">
+          <p class="testi__stars">★★★★★</p>
+          <p class="testi__text">"Minha mãe tem Alzheimer e o Aura virou parte da nossa rotina. Os lembretes não falham e ela ama o joguinho da memória."</p>
+          <div class="testi__user">
+            <div class="testi__avatar grad-bg">M</div>
+            <div><strong>Marina S.</strong><small>Filha cuidadora</small></div>
+          </div>
+        </article>
+
+        <article class="testi__card">
+          <p class="testi__stars">★★★★★</p>
+          <p class="testi__text">"Como cuidador profissional, o Aura me deu organização que eu não tinha. Os familiares acompanham tudo em tempo real."</p>
+          <div class="testi__user">
+            <div class="testi__avatar grad-bg">R</div>
+            <div><strong>Ricardo P.</strong><small>Cuidador especializado</small></div>
+          </div>
+        </article>
+
+        <article class="testi__card">
+          <p class="testi__stars">★★★★★</p>
+          <p class="testi__text">"Moro longe dos meus avós e o SOS me deixa em paz. Já me ajudou em um momento crítico, salvou de verdade."</p>
+          <div class="testi__user">
+            <div class="testi__avatar grad-bg">L</div>
+            <div><strong>Luiza M.</strong><small>Neta / Responsável</small></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section class="section section--download" id="download">
+    <div class="section__container download__container">
+      <span class="kicker kicker--light">Download grátis</span>
+      <h2 class="section__title section__title--light">Comece a cuidar com Aura hoje.</h2>
+      <p class="section__lead section__lead--light">
+        Disponível para Android (APK direto) e em breve na Apple App Store. Sem cadastro complicado, sem propaganda.
+      </p>
+
+      <div class="download__cards">
+        <a id="apkDownload" href="#" class="dl-card dl-card--android" data-disabled="true">
+          <div class="dl-card__icon">
+            <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M17.6 9.48l1.84-3.18a.5.5 0 1 0-.86-.5l-1.87 3.24A11.43 11.43 0 0 0 12 7.5c-1.79 0-3.46.4-5.07 1.04L5.06 5.3a.5.5 0 0 0-.86.5l1.84 3.18C2.96 11.13 1 14.36 1 17.94v.06h22v-.06c0-3.58-1.96-6.81-5.4-8.46zM7 15.25a.94.94 0 1 1 .94-.94c0 .52-.42.94-.94.94zm10 0a.94.94 0 1 1 .94-.94c0 .52-.42.94-.94.94z"/></svg>
+          </div>
+          <div>
+            <small>Baixar para</small>
+            <strong>Android (APK)</strong>
+            <span class="dl-card__hint">Em breve — link sendo gerado</span>
+          </div>
+        </a>
+
+        <a href="#" class="dl-card dl-card--ios" data-disabled="true">
+          <div class="dl-card__icon">
+            <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M19.5 17.5c-.4 1-.9 1.9-1.5 2.7-.9 1.1-1.6 1.9-2.2 2.2-.9.5-1.8.7-2.8.7-.7 0-1.5-.2-2.5-.6-1-.4-1.9-.6-2.7-.6-.8 0-1.7.2-2.7.6s-1.8.6-2.4.6c-.9 0-1.8-.2-2.7-.7C-.5 22 -1.2 21.2-2.1 20-2.9 18.9-3.6 17.5-4 16c-.5-1.6-.8-3.2-.8-4.8 0-1.8.4-3.4 1.1-4.7C-3.2 5.5-2.4 4.5-1.4 3.7-.4 3-.7 2.5 0 2.5c.6 0 1.4.2 2.4.6 1 .4 1.6.6 1.9.6.2 0 .9-.2 2-.7C7.5 2.6 8.5 2.4 9.4 2.5c2.4.2 4.2 1.1 5.4 2.9-2.1 1.3-3.2 3.1-3.2 5.4 0 1.8.7 3.3 2 4.5.6.6 1.3 1 2 1.3-.2.4-.4.9-.6 1.4z" transform="translate(4 0)"/></svg>
+          </div>
+          <div>
+            <small>Baixar para</small>
+            <strong>iOS</strong>
+            <span class="dl-card__hint">Em breve na App Store</span>
+          </div>
+        </a>
+      </div>
+
+      <p class="download__note">
+        💡 <strong>Dica:</strong> para instalar o APK no Android, habilite "Instalar de fontes desconhecidas" nas configurações.
+      </p>
+    </div>
+  </section>
+
+  <!-- SEGURANCA -->
+  <section class="section" id="seguranca">
+    <div class="section__container">
+      <span class="kicker">Segurança e Privacidade</span>
+      <h2 class="section__title">Seus dados são sagrados.</h2>
+
+      <div class="security">
+        <div class="sec__item"><div class="sec__icon">🔒</div><h4>Criptografia ponta-a-ponta</h4><p>Senhas com bcrypt e tokens JWT seguros.</p></div>
+        <div class="sec__item"><div class="sec__icon">🚫</div><h4>Sem venda de dados</h4><p>Nunca compartilhamos suas informações.</p></div>
+        <div class="sec__item"><div class="sec__icon">👤</div><h4>Você no controle</h4><p>Compartilhe localização só com quem você escolher.</p></div>
+        <div class="sec__item"><div class="sec__icon">🛡️</div><h4>LGPD compliant</h4><p>Conformidade total com a lei brasileira de proteção de dados.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--alt" id="faq">
+    <div class="section__container">
+      <span class="kicker">FAQ</span>
+      <h2 class="section__title">Perguntas frequentes.</h2>
+
+      <div class="faq">
+        <details class="faq__item" open>
+          <summary>O Aura é gratuito?</summary>
+          <p>Sim! O app é totalmente gratuito para download e uso pessoal. Estamos em fase beta e nosso foco é cuidar de famílias antes de qualquer monetização.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Como instalo o APK no Android?</summary>
+          <p>Baixe o arquivo APK pelo botão acima. No celular Android, vá em Configurações → Segurança → Permitir instalação de fontes desconhecidas. Abra o arquivo baixado e siga as instruções.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Existe versão para iPhone?</summary>
+          <p>Ainda não. Para iOS, é necessário publicar na App Store (processo Apple). Estamos trabalhando nisso — entre na lista de espera enviando um email para hello@aura.app.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Quem pode ver a localização do paciente?</summary>
+          <p>Apenas os cuidadores e familiares <strong>vinculados pelo código exclusivo do paciente</strong>. O paciente sempre tem o controle total e pode revogar acessos quando quiser.</p>
+        </details>
+        <details class="faq__item">
+          <summary>O jogo da memória ajuda mesmo?</summary>
+          <p>Estudos mostram que exercícios cognitivos diários podem retardar a progressão de doenças como Alzheimer. Não substitui tratamento médico, mas é um complemento poderoso para qualidade de vida.</p>
+        </details>
+        <details class="faq__item">
+          <summary>O app funciona sem internet?</summary>
+          <p>O jogo da memória e sons funcionam offline. Para SOS, localização, lembretes e chat é necessário conexão com a internet.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__brand">
+        <img src="./aura-logo.png" alt="Aura" />
+        <span>aura</span>
+        <p class="footer__slogan">Cuidar de quem você <span>ama</span> faz tudo valer mais.</p>
+      </div>
+      <div class="footer__col">
+        <h5>Produto</h5>
+        <a href="#sobre">Sobre</a>
+        <a href="#funcionalidades">Funcionalidades</a>
+        <a href="#memoria">Jogo da Memória</a>
+        <a href="#download">Download</a>
+      </div>
+      <div class="footer__col">
+        <h5>Empresa</h5>
+        <a href="#seguranca">Segurança</a>
+        <a href="#faq">FAQ</a>
+        <a href="mailto:hello@aura.app">Contato</a>
+      </div>
+      <div class="footer__col">
+        <h5>Legal</h5>
+        <a href="#">Termos de uso</a>
+        <a href="#">Política de privacidade</a>
+        <a href="#">LGPD</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Aura. Feito com 💜 no Brasil.</p>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
