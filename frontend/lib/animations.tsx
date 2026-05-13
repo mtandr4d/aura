@@ -45,6 +45,8 @@ export function PressableScale({
   // IMPORTANTE: usamos Pressable normal + Animated.View interno.
   // O `AnimatedPressable` (createAnimatedComponent + transform) tem bug conhecido
   // em production builds Android que bloqueia toques em formulários e botões.
+  // Padrão correto: pointerEvents="box-none" no wrapper VIEW, NUNCA no Animated.View
+  // (que com transform vira gesture interceptor e bloqueia toques no Android).
   return (
     <Pressable
       {...rest}
@@ -60,9 +62,11 @@ export function PressableScale({
       onPress={onPress}
       style={style as any}
     >
-      <Animated.View style={animStyle} pointerEvents="box-none">
-        {children as any}
-      </Animated.View>
+      <View pointerEvents="box-none">
+        <Animated.View style={animStyle}>
+          {children as any}
+        </Animated.View>
+      </View>
     </Pressable>
   );
 }
@@ -94,7 +98,9 @@ export function Pulse({ children, active = true, intensity = 0.04, duration = 14
   }, [active, intensity, duration, scale]);
 
   const animStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
-  return <Animated.View style={[animStyle, style]}>{children}</Animated.View>;
+  // pointerEvents="box-none" no Animated.View do Pulse é OK pois ele é DECORATIVO
+  // e os filhos (PressableScale dentro) precisam receber toques.
+  return <Animated.View style={[animStyle, style]} pointerEvents="box-none">{children}</Animated.View>;
 }
 
 // Easy entering animation wrappers
