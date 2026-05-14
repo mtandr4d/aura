@@ -5,7 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAuth } from '../../lib/auth';
-import { colors, fonts, fontSizes, gradients, radii, shadows, spacing } from '../../lib/theme';
+import { useTheme } from '../../lib/theme-context';
+import { fonts, fontSizes, radii, shadows, spacing } from '../../lib/theme';
 import { PressableScale, SlideUpView } from '../../lib/animations';
 import { AuraBackground } from '../../components/AuraBackground';
 import { AuraCard } from '../../components/AuraCard';
@@ -14,6 +15,7 @@ import { sounds } from '../../lib/sounds';
 
 export default function Settings() {
   const { user, signOut } = useAuth();
+  const { isDark, toggleMode, colors, gradients } = useTheme();
   const [soundsOn, setSoundsOn] = useState(true);
 
   useEffect(() => {
@@ -69,11 +71,28 @@ export default function Settings() {
           </SlideUpView>
 
           <SlideUpView delay={200}>
-            <Text style={styles.sectionTitle}>Preferências</Text>
+            <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>Preferências</Text>
             <AuraCard>
               <SettingRow
+                icon="moon"
+                iconBg={isDark ? '#3D1F6E' : '#EDE9FE'}
+                iconColor={colors.primary}
+                title="Modo escuro"
+                subtitle="Tema dark premium"
+              >
+                <Switch
+                  testID="dark-mode-toggle"
+                  value={isDark}
+                  onValueChange={toggleMode}
+                  trackColor={{ false: '#E2E8F0', true: colors.primaryLight }}
+                  thumbColor={Platform.OS === 'android' ? (isDark ? colors.primary : '#fff') : undefined}
+                  ios_backgroundColor="#E2E8F0"
+                />
+              </SettingRow>
+              <Divider />
+              <SettingRow
                 icon="volume-high"
-                iconBg="#FCE7F3"
+                iconBg={isDark ? '#7C2D54' : '#FCE7F3'}
                 iconColor={colors.pink}
                 title="Sons do app"
                 subtitle="Toques suaves ao interagir"
@@ -90,7 +109,7 @@ export default function Settings() {
               <Divider />
               <SettingRow
                 icon="notifications"
-                iconBg="#FFEDD5"
+                iconBg={isDark ? '#92400E' : '#FFEDD5'}
                 iconColor={colors.warm}
                 title="Notificações"
                 subtitle="Lembretes de remédios e visitas"
@@ -100,7 +119,7 @@ export default function Settings() {
               <Divider />
               <SettingRow
                 icon="accessibility"
-                iconBg="#DCFCE7"
+                iconBg={isDark ? '#065F46' : '#DCFCE7'}
                 iconColor={colors.success}
                 title="Acessibilidade"
                 subtitle="Textos grandes e contraste"

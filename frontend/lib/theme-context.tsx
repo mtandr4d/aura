@@ -6,29 +6,59 @@ import { colors as lightColors } from './theme';
 
 export type ThemeMode = 'light' | 'dark';
 
-// Paleta DARK PREMIUM Aura
+// Paleta DARK PREMIUM Aura (conforme referência)
 export const darkColors = {
-  ...lightColors,
-  // Surfaces
-  bg: '#1B1240',
-  bgSoft: '#2B1B5C',
-  bgWarm: '#1F1547',
+  // Brand core (accent colors mantêm vibrantes)
+  purple: '#8B5CF6',
+  pink: '#EC4899',
+  orange: '#F59E0B',
+  teal: '#10B981',
+  navy: '#1B1240',
+
+  // Semantic
+  primary: '#8B5CF6',
+  primaryDark: '#6A23D9',
+  primaryLight: '#A78BFA',
+  accent: '#EC4899',
+  accentSoft: '#7C2D54',
+  warm: '#F59E0B',
+  warmSoft: '#92400E',
+  success: '#10B981',
+  successDark: '#059669',
+  sos: '#EF4444',
+  sosDark: '#DC2626',
+
+  // Dark surfaces (fundo escuro premium)
+  bg: '#0F0B1F',
+  bgSoft: '#1B1240',
+  bgWarm: '#1F1738',
   bgPatient: '#1B1240',
-  card: '#241758',
-  cardSoft: '#2B1B5C',
-  glass: 'rgba(36, 23, 88, 0.78)',
-  glassDark: 'rgba(0,0,0,0.55)',
-  // Text
+  card: '#2B1B5C',
+  cardSoft: '#3D1F6E',
+  glass: 'rgba(59,48,96,0.78)',
+  glassDark: 'rgba(27,18,64,0.85)',
+
+  // Text (branco e roxo claro)
   textPrimary: '#FFFFFF',
-  textSecondary: '#C7B8FF',
-  textMuted: '#7C6FA8',
+  textSecondary: '#C4B5FD',
+  textMuted: '#8B7BA8',
   textInverse: '#1B1240',
+  textInverseAlt: '#0F0B1F',
   patientText: '#FFFFFF',
-  // Borders
-  border: 'rgba(155, 107, 255, 0.22)',
-  borderSoft: 'rgba(155, 107, 255, 0.14)',
-  shadow: 'rgba(0,0,0,0.35)',
-  shadowStrong: 'rgba(0,0,0,0.55)',
+  patientAlert: '#7C2D12',
+
+  // Borders & shadows (roxo escuro)
+  border: '#4C3883',
+  borderSoft: '#3D1F6E',
+  borderLight: '#3D1F6E',
+  shadow: 'rgba(0,0,0,0.45)',
+  shadowStrong: 'rgba(0,0,0,0.65)',
+
+  // Legacy
+  warning: '#F59E0B',
+  secondary: '#10B981',
+  secondaryDark: '#059669',
+  tertiary: '#F59E0B',
 };
 
 type Ctx = {
