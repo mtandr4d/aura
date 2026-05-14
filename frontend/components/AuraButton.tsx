@@ -1,7 +1,7 @@
 // AuraButton — Premium gradient/glass button with sound + haptic feedback
 // Suporte completo a dark mode via theme context
 import React from 'react';
-import { Text, StyleSheet, ActivityIndicator, View, ViewStyle, StyleProp } from 'react-native';
+import { Text, StyleSheet, ActivityIndicator, View, ViewStyle, StyleProp, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { PressableScale } from '../lib/animations';
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   gradientLarge: { paddingVertical: 20, minHeight: 64 },
   ghost: {
     borderWidth: 2,
-    borderColor: colors.primary,
+    borderColor: '#6A23D9', // Usar cor direta ao invés de colors.primary
     backgroundColor: 'transparent',
   },
   glass: {
