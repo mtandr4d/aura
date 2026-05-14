@@ -150,7 +150,7 @@ export default function Settings() {
             />
           </SlideUpView>
 
-          <Text style={styles.footer}>Feito com 💜 pela equipe Aura</Text>
+          <Text style={[styles.footer, { color: colors.textMuted }]}>Feito com 💜 pela equipe Aura</Text>
         </ScrollView>
       </SafeAreaView>
     </View>
@@ -172,27 +172,32 @@ function SettingRow({
   subtitle?: string;
   children?: React.ReactNode;
 }) {
+  const { colors } = useTheme();
+  
   return (
     <View style={styles.row}>
       <View style={[styles.rowIcon, { backgroundColor: iconBg }]}>
         <Ionicons name={icon as any} size={20} color={iconColor} />
       </View>
       <View style={{ flex: 1 }}>
-        <Text style={styles.rowTitle}>{title}</Text>
-        {subtitle && <Text style={styles.rowSubtitle}>{subtitle}</Text>}
+        <Text style={[styles.rowTitle, { color: colors.textPrimary }]}>{title}</Text>
+        {subtitle && <Text style={[styles.rowSubtitle, { color: colors.textSecondary }]}>{subtitle}</Text>}
       </View>
       {children}
     </View>
   );
 }
 
-const Divider = () => <View style={styles.divider} />;
+const Divider = () => {
+  const { colors } = useTheme();
+  return <View style={[styles.divider, { backgroundColor: colors.borderSoft }]} />;
+};
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'transparent' },
   scroll: { padding: spacing.lg, paddingBottom: 120 },
-  title: { fontSize: fontSizes.h2, fontFamily: fonts.extrabold, color: colors.navy, letterSpacing: -1 },
-  subtitle: { fontSize: fontSizes.base, fontFamily: fonts.medium, color: colors.textSecondary, marginTop: 4 },
+  title: { fontSize: fontSizes.h2, fontFamily: fonts.extrabold, letterSpacing: -1 },
+  subtitle: { fontSize: fontSizes.base, fontFamily: fonts.medium, marginTop: 4 },
   profileRow: { flexDirection: 'row', alignItems: 'center', gap: 14 },
   avatar: {
     width: 64,
@@ -204,8 +209,8 @@ const styles = StyleSheet.create({
     ...shadows.sm,
   },
   avatarText: { color: '#fff', fontFamily: fonts.extrabold, fontSize: 28 },
-  profileName: { fontSize: fontSizes.lg, fontFamily: fonts.extrabold, color: colors.textPrimary, letterSpacing: -0.3 },
-  profileEmail: { fontSize: fontSizes.sm, fontFamily: fonts.medium, color: colors.textSecondary, marginTop: 2 },
+  profileName: { fontSize: fontSizes.lg, fontFamily: fonts.extrabold, letterSpacing: -0.3 },
+  profileEmail: { fontSize: fontSizes.sm, fontFamily: fonts.medium, marginTop: 2 },
   roleBadge: {
     alignSelf: 'flex-start',
     backgroundColor: '#EDE9FE',
@@ -214,11 +219,10 @@ const styles = StyleSheet.create({
     borderRadius: radii.pill,
     marginTop: 6,
   },
-  roleBadgeText: { color: colors.primary, fontFamily: fonts.bold, fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.6 },
+  roleBadgeText: { color: '#6A23D9', fontFamily: fonts.bold, fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.6 },
   sectionTitle: {
     fontSize: fontSizes.sm,
     fontFamily: fonts.bold,
-    color: colors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 1.2,
     marginTop: spacing.lg,
@@ -227,12 +231,11 @@ const styles = StyleSheet.create({
   },
   row: { flexDirection: 'row', alignItems: 'center', gap: 14, paddingVertical: 12 },
   rowIcon: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
-  rowTitle: { fontSize: fontSizes.base, fontFamily: fonts.bold, color: colors.textPrimary },
-  rowSubtitle: { fontSize: fontSizes.sm, fontFamily: fonts.medium, color: colors.textSecondary, marginTop: 2 },
-  divider: { height: 1, backgroundColor: colors.borderSoft, marginVertical: 2 },
+  rowTitle: { fontSize: fontSizes.base, fontFamily: fonts.bold },
+  rowSubtitle: { fontSize: fontSizes.sm, fontFamily: fonts.medium, marginTop: 2 },
+  divider: { height: 1, marginVertical: 2 },
   footer: {
     textAlign: 'center',
-    color: colors.textMuted,
     fontSize: fontSizes.xs,
     fontFamily: fonts.medium,
     marginTop: spacing.xl,
