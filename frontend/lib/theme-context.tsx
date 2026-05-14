@@ -2,7 +2,7 @@
 // Light/dark switch baseado em AsyncStorage. Provê useTheme() hook em qualquer lugar.
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { colors as lightColors } from './theme';
+import { colors as lightColors, gradients as lightGradients } from './theme';
 
 export type ThemeMode = 'light' | 'dark';
 
@@ -67,6 +67,7 @@ type Ctx = {
   toggleMode: () => void;
   setMode: (m: ThemeMode) => void;
   colors: typeof lightColors;
+  gradients: typeof lightGradients;
 };
 
 const ThemeCtx = createContext<Ctx | null>(null);
@@ -97,6 +98,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       toggleMode,
       setMode,
       colors: mode === 'dark' ? darkColors : lightColors,
+      gradients: lightGradients,
     }),
     [mode],
   );
@@ -114,6 +116,7 @@ export function useTheme(): Ctx {
       toggleMode: () => {},
       setMode: () => {},
       colors: lightColors,
+      gradients: lightGradients,
     };
   }
   return ctx;
