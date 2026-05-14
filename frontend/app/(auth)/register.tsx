@@ -11,7 +11,7 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -40,6 +40,7 @@ const ROLES: {
 
 export default function Register() {
   const { signUp } = useAuth();
+  const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -57,9 +58,18 @@ export default function Register() {
     }
     setLoading(true);
     try {
-      await signUp(email.trim().toLowerCase(), password, name.trim(), role);
+      const user = await signUp(email.trim().toLowerCase(), password, name.trim(), role);
       Triggers.success();
       sounds.play('success');
+      
+      // Redirecionar para a home correspondente ao role
+      if (user.role === 'patient') {
+        router.replace('/(patient)');
+      } else if (user.role === 'caregiver') {
+        router.replace('/(caregiver)');
+      } else {
+        router.replace('/(responsible)');
+      }
     } catch (e) {
       Triggers.error();
       sounds.play('error');

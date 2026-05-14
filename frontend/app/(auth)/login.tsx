@@ -12,7 +12,7 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../../lib/auth';
 import { apiError } from '../../lib/api';
@@ -29,6 +29,7 @@ const HEART = require('../../assets/images/aura-heart.png');
 
 export default function Login() {
   const { signIn } = useAuth();
+  const router = useRouter();
   const { isDark, colors: themeColors } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -42,9 +43,18 @@ export default function Login() {
     }
     setLoading(true);
     try {
-      await signIn(email.trim().toLowerCase(), password);
+      const user = await signIn(email.trim().toLowerCase(), password);
       Triggers.success();
       sounds.play('success');
+      
+      // Redirecionar para a home correspondente ao role
+      if (user.role === 'patient') {
+        router.replace('/(patient)');
+      } else if (user.role === 'caregiver') {
+        router.replace('/(caregiver)');
+      } else {
+        router.replace('/(responsible)');
+      }
     } catch (e) {
       Triggers.error();
       sounds.play('error');
