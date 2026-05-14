@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, fontSizes, radii, spacing } from '../lib/theme';
+import { useTheme } from '../lib/theme-context';
 
 interface Props extends TextInputProps {
   label?: string;
@@ -32,16 +33,27 @@ export function AuraInput({
   ...props
 }: Props) {
   const [focused, setFocused] = useState(false);
+  const { isDark, colors: themed } = useTheme();
+  const inputBg = isDark ? 'rgba(255,255,255,0.06)' : '#FFFFFF';
+  const inputBorder = isDark ? 'rgba(155, 107, 255, 0.22)' : colors.border;
 
   return (
     <View style={styles.field}>
-      {label && <Text style={styles.label}>{label}</Text>}
-      <View style={[styles.wrap, focused && styles.focused]}>
+      {label && (
+        <Text style={[styles.label, { color: themed.textPrimary }]}>{label}</Text>
+      )}
+      <View
+        style={[
+          styles.wrap,
+          { backgroundColor: inputBg, borderColor: inputBorder },
+          focused && styles.focused,
+        ]}
+      >
         {icon && (
           <Ionicons
             name={icon}
             size={20}
-            color={focused ? colors.primary : colors.textMuted}
+            color={focused ? colors.primary : themed.textMuted}
             style={styles.iconLeft}
           />
         )}
@@ -56,8 +68,8 @@ export function AuraInput({
             setFocused(false);
             props.onBlur?.(e);
           }}
-          placeholderTextColor={colors.textMuted}
-          style={[styles.input, style as any]}
+          placeholderTextColor={themed.textMuted}
+          style={[styles.input, { color: themed.textPrimary }, style as any]}
         />
         {rightIcon && (
           // Pressable PURO (sem animação/transform) para não bloquear touches no APK
@@ -69,7 +81,7 @@ export function AuraInput({
               pressed && { opacity: 0.6 },
             ]}
           >
-            <Ionicons name={rightIcon} size={20} color={colors.textMuted} />
+            <Ionicons name={rightIcon} size={20} color={themed.textMuted} />
           </Pressable>
         )}
       </View>

@@ -110,6 +110,14 @@ export default function Register() {
               <View style={styles.roleRow}>
                 {ROLES.map((r) => {
                   const active = role === r.id;
+                  const Wrapper: any = active ? LinearGradient : View;
+                  const wrapperExtras: any = active
+                    ? {
+                        colors: r.gradient,
+                        start: { x: 0, y: 0 },
+                        end: { x: 1, y: 1 },
+                      }
+                    : {};
                   return (
                     <PressableScale
                       key={r.id}
@@ -119,31 +127,28 @@ export default function Register() {
                         sounds.play('tap');
                         setRole(r.id);
                       }}
-                      style={[styles.roleCard, active && styles.roleCardActive] as any}
+                      style={styles.roleSlot as any}
                     >
-                      {active ? (
-                        <LinearGradient
-                          colors={r.gradient as any}
-                          start={{ x: 0, y: 0 }}
-                          end={{ x: 1, y: 1 }}
-                          style={[StyleSheet.absoluteFill, { borderRadius: radii.lg }]}
-                        />
-                      ) : null}
-                      <View style={styles.roleIconCircle(active)}>
-                        <Ionicons
-                          name={r.icon}
-                          size={22}
-                          color={active ? colors.textInverse : colors.primary}
-                        />
-                      </View>
-                      <Text style={[styles.roleTitle, active && { color: colors.textInverse }]}>
-                        {r.title}
-                      </Text>
-                      <Text
-                        style={[styles.roleSub, active && { color: 'rgba(255,255,255,0.9)' }]}
+                      <Wrapper
+                        {...wrapperExtras}
+                        style={[styles.roleCard, active && styles.roleCardActive] as any}
                       >
-                        {r.subtitle}
-                      </Text>
+                        <View style={styles.roleIconCircle(active)}>
+                          <Ionicons
+                            name={r.icon}
+                            size={22}
+                            color={active ? colors.textInverse : colors.primary}
+                          />
+                        </View>
+                        <Text style={[styles.roleTitle, active && { color: colors.textInverse }]}>
+                          {r.title}
+                        </Text>
+                        <Text
+                          style={[styles.roleSub, active && { color: 'rgba(255,255,255,0.9)' }]}
+                        >
+                          {r.subtitle}
+                        </Text>
+                      </Wrapper>
                     </PressableScale>
                   );
                 })}
@@ -280,8 +285,8 @@ const styles: any = StyleSheet.create({
     letterSpacing: 1,
   },
   roleRow: { flexDirection: 'row', gap: spacing.sm, marginBottom: spacing.lg },
+  roleSlot: { flex: 1 },
   roleCard: {
-    flex: 1,
     minHeight: 130,
     backgroundColor: colors.bgSoft,
     borderRadius: radii.lg,

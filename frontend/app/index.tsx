@@ -15,6 +15,8 @@ import Animated, {
 } from 'react-native-reanimated';
 import { AuraBackground } from '../components/AuraBackground';
 import { useAuth } from '../lib/auth';
+import { useTheme } from '../lib/theme-context';
+import { hasSeenOnboarding } from '../lib/onboarding';
 import { colors, fonts, fontSizes } from '../lib/theme';
 import { sounds } from '../lib/sounds';
 
@@ -23,6 +25,7 @@ const LOGO = require('../assets/images/aura-heart.png');
 export default function Index() {
   const router = useRouter();
   const { user, loading } = useAuth();
+  const { isDark, colors: themeColors } = useTheme();
   const glow = useSharedValue(0);
   const scale = useSharedValue(0.8);
 
@@ -46,9 +49,11 @@ export default function Index() {
 
   useEffect(() => {
     if (loading) return;
-    const t = setTimeout(() => {
-      if (!user) router.replace('/(auth)/login');
-      else if (user.role === 'patient') router.replace('/(patient)');
+    const t = setTimeout(async () => {
+      if (!user) {
+        const seen = await hasSeenOnboarding();
+        router.replace(seen ? '/(auth)/login' : '/(auth)/onboarding');
+      } else if (user.role === 'patient') router.replace('/(patient)');
       else if (user.role === 'caregiver') router.replace('/(caregiver)');
       else router.replace('/(responsible)');
     }, 2000);
@@ -66,8 +71,8 @@ export default function Index() {
   }));
 
   return (
-    <View style={styles.root}>
-      <AuraBackground variant="hero" />
+    <View style={[styles.root, { backgroundColor: themeColors.bg }]}>
+      <AuraBackground variant={isDark ? 'dark' : 'hero'} />
 
       <View style={styles.center} pointerEvents="none">
         {/* Halo pulsante atrás do logo */}
@@ -80,14 +85,14 @@ export default function Index() {
 
         {/* Wordmark com fade-in */}
         <Animated.View entering={FadeIn.delay(700).duration(700)}>
-          <Text style={styles.wordmark}>
+          <Text style={[styles.wordmark, { color: themeColors.textPrimary }]}>
             aur<Text style={styles.wordmarkAccent}>a</Text>
           </Text>
         </Animated.View>
 
         {/* Slogan com fade-in */}
         <Animated.View entering={FadeIn.delay(1100).duration(700)}>
-          <Text style={styles.slogan}>
+          <Text style={[styles.slogan, { color: themeColors.textSecondary }]}>
             Cuidar de quem você <Text style={styles.sloganAccent}>ama</Text>
             {'\n'}faz tudo valer mais.
           </Text>

@@ -17,16 +17,19 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../../lib/auth';
 import { apiError } from '../../lib/api';
 import { colors, fonts, fontSizes, spacing } from '../../lib/theme';
+import { useTheme } from '../../lib/theme-context';
 import { PressableScale, Triggers } from '../../lib/animations';
 import { AuraInput } from '../../components/AuraInput';
 import { AuraButton } from '../../components/AuraButton';
 import { AuraBackground } from '../../components/AuraBackground';
+import { ThemeToggle } from '../../components/ThemeToggle';
 import { sounds } from '../../lib/sounds';
 
 const HEART = require('../../assets/images/aura-heart.png');
 
 export default function Login() {
   const { signIn } = useAuth();
+  const { isDark, colors: themeColors } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPwd, setShowPwd] = useState(false);
@@ -52,9 +55,9 @@ export default function Login() {
   };
 
   return (
-    <View style={styles.root}>
-      {/* Fundo claro premium com círculos abstratos (referência oficial) */}
-      <AuraBackground variant="light" />
+    <View style={[styles.root, { backgroundColor: themeColors.bg }]}>
+      {/* Fundo claro/escuro premium com círculos abstratos (referência oficial) */}
+      <AuraBackground variant={isDark ? 'dark' : 'light'} />
 
       <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
         <KeyboardAvoidingView
@@ -66,6 +69,11 @@ export default function Login() {
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
+            {/* Toggle dark/light no topo direito */}
+            <View style={styles.topBar}>
+              <ThemeToggle />
+            </View>
+
             {/* MARCA: círculo branco + logo coração + wordmark "aura" (a final magenta) + slogan */}
             <View style={styles.brand}>
               <View style={styles.logoCircle}>
@@ -77,20 +85,22 @@ export default function Login() {
                 />
               </View>
 
-              <Text style={styles.wordmark}>
+              <Text style={[styles.wordmark, { color: themeColors.textPrimary }]}>
                 aur<Text style={styles.wordmarkAccent}>a</Text>
               </Text>
 
-              <Text style={styles.slogan}>
+              <Text style={[styles.slogan, { color: themeColors.textSecondary }]}>
                 Cuidar de quem você <Text style={styles.sloganAccent}>ama</Text>
                 {'\n'}faz tudo valer mais.
               </Text>
             </View>
 
-            {/* Card branco com formulário */}
-            <View style={styles.card}>
-              <Text style={styles.title}>Entrar</Text>
-              <Text style={styles.subtitle}>Continue cuidando com carinho</Text>
+            {/* Card com formulário (branco no light, escuro premium no dark) */}
+            <View style={[styles.card, isDark && styles.cardDark]}>
+              <Text style={[styles.title, { color: themeColors.textPrimary }]}>Entrar</Text>
+              <Text style={[styles.subtitle, { color: themeColors.textSecondary }]}>
+                Continue cuidando com carinho
+              </Text>
 
               <View style={styles.formGroup}>
                 <AuraInput
@@ -140,7 +150,7 @@ export default function Login() {
                   scaleTo={1}
                   style={styles.linkRow}
                 >
-                  <Text style={styles.linkText}>
+                  <Text style={[styles.linkText, { color: themeColors.textSecondary }]}>
                     Ainda não tem conta?{' '}
                     <Text style={styles.linkBold}>Criar conta</Text>
                   </Text>
@@ -163,6 +173,11 @@ const styles = StyleSheet.create({
     paddingTop: spacing.lg,
     paddingBottom: spacing.xl,
     justifyContent: 'center',
+  },
+  topBar: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: spacing.md,
   },
 
   // BRAND (logo + nome + slogan)
@@ -225,6 +240,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.10,
     shadowRadius: 32,
     elevation: 8,
+  },
+  cardDark: {
+    backgroundColor: 'rgba(36, 23, 88, 0.85)',
+    borderWidth: 1,
+    borderColor: 'rgba(155, 107, 255, 0.18)',
+    shadowColor: '#000',
+    shadowOpacity: 0.40,
   },
   title: {
     fontSize: 32,

@@ -15,10 +15,12 @@ import { AuthProvider, useAuth } from '../lib/auth';
 import { ActivePatientProvider } from '../lib/active-patient';
 import { configureNotifications } from '../lib/notifications';
 import { colors } from '../lib/theme';
+import { ThemeProvider, useTheme } from '../lib/theme-context';
 import { sounds } from '../lib/sounds';
 
 function RouteGuard() {
   const { user, loading } = useAuth();
+  const { isDark, colors: themeColors } = useTheme();
   const segments = useSegments();
   const router = useRouter();
 
@@ -44,13 +46,16 @@ function RouteGuard() {
   }, [user, loading, segments, router]);
 
   return (
-    <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }}>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="(auth)" />
-      <Stack.Screen name="(patient)" />
-      <Stack.Screen name="(caregiver)" />
-      <Stack.Screen name="(responsible)" />
-    </Stack>
+    <>
+      <StatusBar style={isDark ? 'light' : 'dark'} />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: themeColors.bg } }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(patient)" />
+        <Stack.Screen name="(caregiver)" />
+        <Stack.Screen name="(responsible)" />
+      </Stack>
+    </>
   );
 }
 
@@ -78,19 +83,19 @@ export default function RootLayout() {
   }, []);
 
   // Não bloqueamos a UI esperando fontes (usa fallback do sistema se Manrope demorar).
-  // Isso evita tela de loading prolongada em redes lentas.
   void fontsLoaded;
   void fontTimeout;
   void setFontTimeout;
 
   return (
     <SafeAreaProvider>
-      <StatusBar style="dark" />
-      <AuthProvider>
-        <ActivePatientProvider>
-          <RouteGuard />
-        </ActivePatientProvider>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <ActivePatientProvider>
+            <RouteGuard />
+          </ActivePatientProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </SafeAreaProvider>
   );
 }
