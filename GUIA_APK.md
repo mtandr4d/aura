@@ -50,7 +50,7 @@ yarn install
 ### 2.3 Verifique o arquivo `.env`
 Abra o arquivo `frontend/.env` num editor de texto (TextEdit, VS Code...). Ele deve ter:
 ```
-EXPO_PUBLIC_BACKEND_URL=https://b48aab4a-0894-4be8-a9ff-6a46dd524152.preview.emergentagent.com
+EXPO_PUBLIC_BACKEND_URL=https://aura-evolution-3.preview.emergentagent.com
 ```
 
 Se vazio, cole essa linha. Pronto, salve.
