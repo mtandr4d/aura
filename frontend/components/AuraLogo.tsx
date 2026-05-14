@@ -1,7 +1,9 @@
 // AuraLogo — usa a imagem oficial da marca Aura
+// PROPORÇÕES CORRIGIDAS: coração e círculo maiores para melhor visualização
 import React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
-import { colors, fonts, shadows } from '../lib/theme';
+import { useTheme } from '../lib/theme-context';
+import { fonts, shadows } from '../lib/theme';
 
 interface Props {
   size?: number;
@@ -10,28 +12,25 @@ interface Props {
   light?: boolean;
 }
 
-// A imagem original contém logo + wordmark + slogan já compostos.
-// Para flexibilidade, oferecemos 3 modos:
-//   - size only          → mostra apenas o ícone do coração (recortado da imagem inteira via aspectRatio fixo)
-//   - showWordmark       → mostra a imagem inteira (logo + "aura" + slogan)
-//   - showSlogan (custom)→ texto do slogan abaixo com a palavra "ama" em rosa
 const FULL_LOGO = require('../assets/images/aura-logo.png');
 
-export function AuraLogo({ size = 84, showWordmark = false, showSlogan = false, light = false }: Props) {
+export function AuraLogo({ size = 100, showWordmark = false, showSlogan = false, light = false }: Props) {
+  const { colors } = useTheme();
+  
   if (showWordmark) {
     // Imagem oficial completa (logo + wordmark + slogan na própria imagem)
     return (
       <View style={{ alignItems: 'center' }}>
         <Image
           source={FULL_LOGO}
-          style={{ width: size * 2.4, height: size * 2.4, resizeMode: 'contain' }}
+          style={{ width: size * 2.8, height: size * 2.8, resizeMode: 'contain' }}
           accessibilityLabel="Logo Aura"
         />
       </View>
     );
   }
 
-  // Apenas o ícone (coração estilizado) recortado do topo da imagem oficial
+  // Apenas o ícone (coração estilizado) com PROPORÇÕES MAIORES
   return (
     <View style={{ alignItems: 'center' }}>
       <View style={[styles.iconWrap, { width: size, height: size, borderRadius: size * 0.22 }]}>
@@ -39,9 +38,9 @@ export function AuraLogo({ size = 84, showWordmark = false, showSlogan = false, 
           <Image
             source={FULL_LOGO}
             style={{
-              width: size * 1.05,
-              height: size * 1.9,
-              marginTop: -size * 0.08,
+              width: size * 1.15, // Aumentado de 1.05 para 1.15
+              height: size * 2.1, // Aumentado de 1.9 para 2.1
+              marginTop: -size * 0.1, // Ajustado de -0.08 para -0.1
               resizeMode: 'contain',
             }}
             accessibilityLabel="Ícone Aura"
@@ -49,8 +48,8 @@ export function AuraLogo({ size = 84, showWordmark = false, showSlogan = false, 
         </View>
       </View>
       {showSlogan && (
-        <Text style={[styles.slogan, { color: light ? colors.textInverse : colors.navy }]}>
-          Cuidar de quem você <Text style={styles.sloganAccent}>ama</Text> faz tudo valer mais.
+        <Text style={[styles.slogan, { color: light ? colors.textInverse : colors.textPrimary }]}>
+          Cuidar de quem você <Text style={[styles.sloganAccent, { color: colors.pink }]}>ama</Text> faz tudo valer mais.
         </Text>
       )}
     </View>
@@ -59,9 +58,11 @@ export function AuraLogo({ size = 84, showWordmark = false, showSlogan = false, 
 
 // Versão com slogan estilizado para usar APÓS a imagem completa
 export function AuraSlogan({ light = false, size = 14 }: { light?: boolean; size?: number }) {
+  const { colors } = useTheme();
+  
   return (
-    <Text style={[styles.slogan, { color: light ? 'rgba(255,255,255,0.92)' : colors.navy, fontSize: size }]}>
-      Cuidar de quem você <Text style={[styles.sloganAccent, { fontSize: size }]}>ama</Text> faz tudo valer mais.
+    <Text style={[styles.slogan, { color: light ? 'rgba(255,255,255,0.92)' : colors.textSecondary, fontSize: size }]}>
+      Cuidar de quem você <Text style={[styles.sloganAccent, { color: colors.pink, fontSize: size }]}>ama</Text> faz tudo valer mais.
     </Text>
   );
 }
@@ -90,7 +91,6 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   sloganAccent: {
-    color: colors.pink,
     fontFamily: fonts.bold,
   },
 });

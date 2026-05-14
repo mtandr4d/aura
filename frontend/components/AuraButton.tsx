@@ -1,10 +1,12 @@
 // AuraButton — Premium gradient/glass button with sound + haptic feedback
+// Suporte completo a dark mode via theme context
 import React from 'react';
-import { Text, StyleSheet, ActivityIndicator, View, ViewStyle, StyleProp, Platform } from 'react-native';
+import { Text, StyleSheet, ActivityIndicator, View, ViewStyle, StyleProp } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { PressableScale } from '../lib/animations';
-import { colors, fonts, fontSizes, gradients, radii, shadows, spacing } from '../lib/theme';
+import { useTheme } from '../lib/theme-context';
+import { fonts, fontSizes, radii, shadows, spacing } from '../lib/theme';
 import { sounds } from '../lib/sounds';
 
 type Variant = 'primary' | 'pink' | 'orange' | 'teal' | 'ghost' | 'glass' | 'sos';
@@ -25,16 +27,6 @@ interface Props {
   sound?: 'tap' | 'success' | 'error' | 'none';
 }
 
-const GRADIENT_MAP: Record<Variant, readonly string[]> = {
-  primary: gradients.aura,
-  pink: gradients.pinkOrange,
-  orange: ['#FF8A00', '#FF5E62'],
-  teal: gradients.teal,
-  ghost: ['transparent', 'transparent'],
-  glass: ['rgba(255,255,255,0.55)', 'rgba(255,255,255,0.25)'],
-  sos: gradients.sos,
-};
-
 export function AuraButton({
   title,
   onPress,
@@ -50,9 +42,23 @@ export function AuraButton({
   haptic = 'medium',
   sound = 'tap',
 }: Props) {
+  const { colors, gradients, isDark } = useTheme();
+  
+  const GRADIENT_MAP: Record<Variant, readonly string[]> = {
+    primary: gradients.aura,
+    pink: gradients.pinkOrange,
+    orange: ['#FF8A00', '#FF5E62'],
+    teal: gradients.teal,
+    ghost: ['transparent', 'transparent'],
+    glass: isDark 
+      ? ['rgba(59,48,96,0.55)', 'rgba(59,48,96,0.25)']
+      : ['rgba(255,255,255,0.55)', 'rgba(255,255,255,0.25)'],
+    sos: gradients.sos,
+  };
+
   const isGhost = variant === 'ghost';
   const isGlass = variant === 'glass';
-  const textColor = isGhost ? colors.primary : isGlass ? colors.navy : colors.textInverse;
+  const textColor = isGhost ? colors.primary : isGlass ? colors.textPrimary : colors.textInverse;
 
   const handlePress = () => {
     if (sound !== 'none') sounds.play(sound);
