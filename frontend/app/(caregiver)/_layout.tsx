@@ -26,7 +26,7 @@ export default function CaregiverLayout() {
           borderRadius: radii.xl,
           borderWidth: 1,
           borderColor: colors.borderSoft,
-          shadowColor: '#5B21B6',
+          shadowColor: '#6A23D9',
           shadowOpacity: 0.18,
           shadowRadius: 20,
           shadowOffset: { width: 0, height: 8 },
@@ -72,7 +72,7 @@ function TabIcon({ name, color, focused }: { name: keyof typeof Ionicons.glyphMa
   if (focused) {
     return (
       <View style={styles.activeWrap}>
-        <LinearGradient colors={['#5B21B6', '#EC4899']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
+        <LinearGradient colors={['#6A23D9', '#FF2D7A']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
         <Ionicons name={name} size={20} color="#fff" />
       </View>
     );

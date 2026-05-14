@@ -1,53 +1,56 @@
 // =============================================================
-// AURA Design Tokens — Premium iOS / Glassmorphism aesthetic
-// Brand palette: Purple, Pink, Orange, Teal, Deep Navy
+// AURA Design Tokens — Premium Light iOS / Glassmorphism
+// Brand palette (referência oficial): Roxo · Rosa magenta · Laranja
 // "Cuidar de quem você ama faz tudo valer mais."
 // =============================================================
 export const colors = {
-  // Brand core
-  purple: '#5B21B6',
-  pink: '#EC4899',
+  // Brand core (paleta oficial das referências)
+  purple: '#6A23D9',
+  pink: '#FF2D7A',
   orange: '#FF8A00',
   teal: '#00B894',
-  navy: '#0F172A',
+  navy: '#1B1240',
 
   // Semantic aliases
-  primary: '#5B21B6',
-  primaryDark: '#4C1D95',
-  primaryLight: '#8B5CF6',
-  accent: '#EC4899',
-  accentSoft: '#FBCFE8',
+  primary: '#6A23D9',
+  primaryDark: '#4F19A8',
+  primaryLight: '#9B6BFF',
+  accent: '#FF2D7A',
+  accentSoft: '#FFD6E5',
   warm: '#FF8A00',
+  warmSoft: '#FFE4C7',
   success: '#00B894',
   successDark: '#059669',
-  sos: '#EF4444',
-  sosDark: '#B91C1C',
+  sos: '#FF3B30',
+  sosDark: '#C92A1F',
 
-  // Surfaces
-  bg: '#FAFAFC',
-  bgSoft: '#F3F1F8',
-  bgPatient: '#FFFBF6',
+  // Surfaces — fundo CLARO premium (lilás + pêssego + branco)
+  bg: '#F6F3FF',
+  bgSoft: '#F1EEFF',
+  bgWarm: '#FFF7FA',
+  bgPatient: '#FFF7FA',
   card: '#FFFFFF',
-  glass: 'rgba(255,255,255,0.72)',
-  glassDark: 'rgba(15,23,42,0.55)',
+  cardSoft: '#FBFAFF',
+  glass: 'rgba(255,255,255,0.78)',
+  glassDark: 'rgba(27,18,64,0.55)',
 
   // Text
-  textPrimary: '#0F172A',
-  textSecondary: '#64748B',
-  textMuted: '#94A3B8',
+  textPrimary: '#1B1240',
+  textSecondary: '#5B4D7A',
+  textMuted: '#9B91B2',
   textInverse: '#FFFFFF',
-  patientText: '#0F172A',
+  patientText: '#1B1240',
 
-  // Borders & shadows
-  border: '#E2E8F0',
-  borderSoft: '#EDE9F5',
-  shadow: 'rgba(91, 33, 182, 0.10)',
-  shadowStrong: 'rgba(15, 23, 42, 0.18)',
+  // Borders & shadows (sombra com tom roxo bem suave)
+  border: '#E9E3F5',
+  borderSoft: '#EFEAF8',
+  shadow: 'rgba(106, 35, 217, 0.10)',
+  shadowStrong: 'rgba(27, 18, 64, 0.18)',
 
-  // Legacy aliases (backwards compat)
+  // Legacy aliases (backwards compat — não quebrar telas existentes)
   textInverseAlt: '#FFFFFF',
-  patientAlert: '#FEE2E2',
-  borderLight: '#EDE9F5',
+  patientAlert: '#FFE4E4',
+  borderLight: '#EFEAF8',
   warning: '#FF8A00',
   secondary: '#00B894',
   secondaryDark: '#059669',
@@ -55,19 +58,20 @@ export const colors = {
 };
 
 export const gradients = {
-  // Signature AURA: purple → pink → orange (heart logo gradient)
-  aura: ['#5B21B6', '#EC4899', '#FF8A00'] as const,
-  auraSoft: ['#EDE9FE', '#FCE7F3', '#FFEDD5'] as const,
-  primary: ['#5B21B6', '#8B5CF6'] as const,
-  pinkOrange: ['#EC4899', '#FF8A00'] as const,
+  // Signature AURA: roxo → magenta → laranja (logo + botões)
+  aura: ['#6A23D9', '#FF2D7A', '#FF8A00'] as const,
+  auraSoft: ['#F1EEFF', '#FFE4E4', '#FFEFD6'] as const,
+  primary: ['#6A23D9', '#9B6BFF'] as const,
+  pinkOrange: ['#FF2D7A', '#FF8A00'] as const,
   teal: ['#00B894', '#059669'] as const,
-  sos: ['#EF4444', '#B91C1C'] as const,
-  hero: ['#5B21B6', '#7C3AED', '#EC4899'] as const,
-  bgWarm: ['#FAFAFC', '#F3F1F8'] as const,
-  patientHero: ['#FFFBF6', '#FFF1E5'] as const,
-  glassDark: ['rgba(91,33,182,0.92)', 'rgba(15,23,42,0.95)'] as const,
-  splash: ['#5B21B6', '#7C3AED', '#EC4899', '#FF8A00'] as const,
-  cardGlow: ['rgba(91,33,182,0.06)', 'rgba(236,72,153,0.04)'] as const,
+  sos: ['#FF3B30', '#C92A1F'] as const,
+  hero: ['#F6F3FF', '#FFF7FA', '#FFEFE4'] as const,
+  bgWarm: ['#F6F3FF', '#FFF7FA'] as const,
+  patientHero: ['#FFF7FA', '#FFEFE4', '#F6F3FF'] as const,
+  glassDark: ['rgba(27,18,64,0.85)', 'rgba(60,30,120,0.95)'] as const,
+  splash: ['#F6F3FF', '#F1EEFF', '#FFE4E4', '#FFEFD6'] as const,
+  cardGlow: ['rgba(106,35,217,0.06)', 'rgba(255,45,122,0.04)'] as const,
+  darkMode: ['#1B1240', '#2B1B5C', '#3D1F6E'] as const,
 };
 
 export const spacing = {
@@ -114,31 +118,31 @@ export const fonts = {
 
 export const shadows = {
   sm: {
-    shadowColor: '#5B21B6',
+    shadowColor: '#6A23D9',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
+    shadowOpacity: 0.10,
+    shadowRadius: 14,
     elevation: 3,
   },
   card: {
-    shadowColor: '#5B21B6',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.10,
-    shadowRadius: 20,
-    elevation: 5,
+    shadowColor: '#6A23D9',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.12,
+    shadowRadius: 28,
+    elevation: 6,
   },
   lg: {
-    shadowColor: '#5B21B6',
-    shadowOffset: { width: 0, height: 14 },
+    shadowColor: '#6A23D9',
+    shadowOffset: { width: 0, height: 18 },
     shadowOpacity: 0.18,
-    shadowRadius: 32,
+    shadowRadius: 36,
     elevation: 10,
   },
   glow: {
-    shadowColor: '#EC4899',
+    shadowColor: '#FF2D7A',
     shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.35,
-    shadowRadius: 24,
+    shadowOpacity: 0.30,
+    shadowRadius: 28,
     elevation: 8,
   },
 };

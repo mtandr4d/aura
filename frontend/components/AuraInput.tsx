@@ -1,8 +1,17 @@
-// AuraInput — Glassmorphism input with icon + focus glow
+// AuraInput — Input estilo iOS pill com ícone, conforme referência oficial Aura
+// IMPORTANTE: NÃO usar AnimatedPressable em volta de inputs (bug Android APK)
+// Foco "iluminado" feito apenas via mudança de borderColor + shadow estático
 import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, TextInputProps, Platform } from 'react-native';
+import {
+  View,
+  TextInput,
+  Text,
+  StyleSheet,
+  TextInputProps,
+  Platform,
+  Pressable,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { PressableScale } from '../lib/animations';
 import { colors, fonts, fontSizes, radii, spacing } from '../lib/theme';
 
 interface Props extends TextInputProps {
@@ -13,8 +22,17 @@ interface Props extends TextInputProps {
   testID?: string;
 }
 
-export function AuraInput({ label, icon, rightIcon, onRightIconPress, style, testID, ...props }: Props) {
+export function AuraInput({
+  label,
+  icon,
+  rightIcon,
+  onRightIconPress,
+  style,
+  testID,
+  ...props
+}: Props) {
   const [focused, setFocused] = useState(false);
+
   return (
     <View style={styles.field}>
       {label && <Text style={styles.label}>{label}</Text>}
@@ -24,7 +42,7 @@ export function AuraInput({ label, icon, rightIcon, onRightIconPress, style, tes
             name={icon}
             size={20}
             color={focused ? colors.primary : colors.textMuted}
-            style={{ marginRight: 10 }}
+            style={styles.iconLeft}
           />
         )}
         <TextInput
@@ -42,9 +60,17 @@ export function AuraInput({ label, icon, rightIcon, onRightIconPress, style, tes
           style={[styles.input, style as any]}
         />
         {rightIcon && (
-          <PressableScale haptic="light" onPress={onRightIconPress}>
+          // Pressable PURO (sem animação/transform) para não bloquear touches no APK
+          <Pressable
+            onPress={onRightIconPress}
+            hitSlop={10}
+            style={({ pressed }) => [
+              styles.rightIconBtn,
+              pressed && { opacity: 0.6 },
+            ]}
+          >
             <Ionicons name={rightIcon} size={20} color={colors.textMuted} />
-          </PressableScale>
+          </Pressable>
         )}
       </View>
     </View>
@@ -55,30 +81,41 @@ const styles = StyleSheet.create({
   field: { marginBottom: spacing.md },
   label: {
     fontSize: fontSizes.sm,
-    fontFamily: fonts.semibold,
-    color: colors.textSecondary,
-    marginBottom: 6,
+    fontFamily: fonts.bold,
+    color: colors.textPrimary,
+    marginBottom: 8,
     marginLeft: 4,
+    letterSpacing: 0.2,
   },
   wrap: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: spacing.md,
     paddingVertical: Platform.OS === 'ios' ? 14 : 4,
-    backgroundColor: 'rgba(255,255,255,0.85)',
-    borderRadius: radii.lg,
+    backgroundColor: '#FFFFFF',
+    borderRadius: radii.pill,
     borderWidth: 1.5,
-    borderColor: colors.borderSoft,
-    ...(Platform.OS === 'web' ? { backdropFilter: 'blur(8px)' as any } : {}),
+    borderColor: colors.border,
+    minHeight: 54,
+    // sombra leve sempre visível para dar profundidade iOS
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 1,
   },
   focused: {
     borderColor: colors.primary,
-    backgroundColor: '#FFFFFF',
     shadowColor: colors.primary,
     shadowOpacity: 0.18,
     shadowRadius: 14,
     shadowOffset: { width: 0, height: 4 },
     elevation: 4,
+  },
+  iconLeft: { marginRight: 12 },
+  rightIconBtn: {
+    padding: 6,
+    marginLeft: 4,
   },
   input: {
     flex: 1,
