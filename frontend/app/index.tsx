@@ -1,6 +1,7 @@
-// Splash AURA — Animação premium do coração se formando (conforme referência)
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+// Splash AURA — PREMIUM MINIMALISTA (sem animação problemática)
+// Logo estático com fade suave, fundo clean
+import React, { useEffect } from 'react';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import Animated, {
   useSharedValue,
@@ -8,9 +9,7 @@ import Animated, {
   withDelay,
   withTiming,
   Easing,
-  FadeIn,
 } from 'react-native-reanimated';
-import { HeartAnimation } from '../components/HeartAnimation';
 import { AuraBackground } from '../components/AuraBackground';
 import { useAuth } from '../lib/auth';
 import { useTheme } from '../lib/theme-context';
@@ -18,25 +17,21 @@ import { hasSeenOnboarding } from '../lib/onboarding';
 import { fonts, fontSizes } from '../lib/theme';
 import { sounds } from '../lib/sounds';
 
+const LOGO = require('../assets/images/aura-logo.png');
+
 export default function Index() {
   const router = useRouter();
   const { user, loading } = useAuth();
   const { isDark, colors } = useTheme();
-  const [heartComplete, setHeartComplete] = useState(false);
-  const logoScale = useSharedValue(0);
-  const sloganOpacity = useSharedValue(0);
+  const opacity = useSharedValue(0);
+  const scale = useSharedValue(0.9);
 
   useEffect(() => {
     sounds.init();
-  }, []);
-
-  // Após coração completar, anima wordmark e slogan
-  useEffect(() => {
-    if (heartComplete) {
-      logoScale.value = withTiming(1, { duration: 600, easing: Easing.out(Easing.cubic) });
-      sloganOpacity.value = withDelay(400, withTiming(1, { duration: 700 }));
-    }
-  }, [heartComplete, logoScale, sloganOpacity]);
+    // Animação simples e suave
+    opacity.value = withTiming(1, { duration: 800, easing: Easing.out(Easing.ease) });
+    scale.value = withTiming(1, { duration: 800, easing: Easing.out(Easing.cubic) });
+  }, [opacity, scale]);
 
   useEffect(() => {
     if (loading) return;
@@ -47,17 +42,13 @@ export default function Index() {
       } else if (user.role === 'patient') router.replace('/(patient)');
       else if (user.role === 'caregiver') router.replace('/(caregiver)');
       else router.replace('/(responsible)');
-    }, 2600);
+    }, 1800);
     return () => clearTimeout(t);
   }, [loading, user, router]);
 
   const logoStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: logoScale.value }],
-    opacity: logoScale.value,
-  }));
-
-  const sloganStyle = useAnimatedStyle(() => ({
-    opacity: sloganOpacity.value,
+    opacity: opacity.value,
+    transform: [{ scale: scale.value }],
   }));
 
   return (
@@ -65,18 +56,18 @@ export default function Index() {
       <AuraBackground variant={isDark ? 'dark' : 'hero'} />
 
       <View style={styles.center} pointerEvents="none">
-        {/* Animação do coração se formando */}
-        <HeartAnimation size={160} onComplete={() => setHeartComplete(true)} />
-
-        {/* Wordmark "aura" com fade-in após coração */}
-        <Animated.View style={[logoStyle, { marginTop: 32 }]}>
-          <Text style={[styles.wordmark, { color: colors.textPrimary }]}>
-            aur<Text style={[styles.wordmarkAccent, { color: colors.pink }]}>a</Text>
-          </Text>
+        {/* Logo completo (coração + wordmark) */}
+        <Animated.View style={logoStyle}>
+          <Image 
+            source={LOGO} 
+            style={styles.logo} 
+            resizeMode="contain"
+            accessibilityLabel="Aura logo"
+          />
         </Animated.View>
 
-        {/* Slogan com fade-in */}
-        <Animated.View style={sloganStyle}>
+        {/* Slogan */}
+        <Animated.View style={logoStyle}>
           <Text style={[styles.slogan, { color: colors.textSecondary }]}>
             Cuidar de quem você <Text style={[styles.sloganAccent, { color: colors.pink }]}>ama</Text>
             {'\n'}faz tudo valer mais.
@@ -95,20 +86,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 32,
   },
-  wordmark: {
-    fontSize: 72,
-    fontFamily: fonts.extrabold,
-    letterSpacing: -3,
-    lineHeight: 78,
-  },
-  wordmarkAccent: {
-    fontFamily: fonts.extrabold,
+  logo: {
+    width: 280,
+    height: 280,
   },
   slogan: {
     fontFamily: fonts.medium,
     fontSize: fontSizes.base,
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: 16,
     maxWidth: 340,
     lineHeight: 22,
   },

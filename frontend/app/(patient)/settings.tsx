@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, ScrollView, Switch, Alert, Platform } from 'rea
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
 import { useAuth } from '../../lib/auth';
 import { useTheme } from '../../lib/theme-context';
 import { fonts, fontSizes, radii, shadows, spacing } from '../../lib/theme';
@@ -15,6 +16,7 @@ import { sounds } from '../../lib/sounds';
 
 export default function Settings() {
   const { user, signOut } = useAuth();
+  const router = useRouter();
   const { isDark, toggleMode, colors, gradients } = useTheme();
   const [soundsOn, setSoundsOn] = useState(true);
 
@@ -34,7 +36,18 @@ export default function Settings() {
   const confirmLogout = () => {
     Alert.alert('Sair da conta', 'Tem certeza que deseja sair?', [
       { text: 'Cancelar', style: 'cancel' },
-      { text: 'Sair', style: 'destructive', onPress: signOut },
+      {
+        text: 'Sair',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            await signOut();
+            router.replace('/(auth)/login');
+          } catch (error) {
+            Alert.alert('Erro', 'Não foi possível sair. Tente novamente.');
+          }
+        },
+      },
     ]);
   };
 
