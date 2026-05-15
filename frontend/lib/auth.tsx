@@ -51,18 +51,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [refresh]);
 
   const signIn = useCallback(async (email: string, password: string) => {
-    const { data } = await api.post('/auth/login', { email, password });
-    await storage.setItem('cm_token', data.access_token);
-    setUser(data.user);
-    return data.user as User;
+    try {
+      console.log('[AUTH] Iniciando login...', email);
+      const { data } = await api.post('/auth/login', { email, password });
+      console.log('[AUTH] Login bem-sucedido');
+      await storage.setItem('cm_token', data.access_token);
+      setUser(data.user);
+      return data.user as User;
+    } catch (error) {
+      console.error('[AUTH] Erro no login:', error);
+      throw error;
+    }
   }, []);
 
   const signUp = useCallback(
     async (email: string, password: string, full_name: string, role: Role) => {
-      const { data } = await api.post('/auth/register', { email, password, full_name, role });
-      await storage.setItem('cm_token', data.access_token);
-      setUser(data.user);
-      return data.user as User;
+      try {
+        console.log('[AUTH] Iniciando cadastro...', email, role);
+        const { data } = await api.post('/auth/register', { email, password, full_name, role });
+        console.log('[AUTH] Cadastro bem-sucedido');
+        await storage.setItem('cm_token', data.access_token);
+        setUser(data.user);
+        return data.user as User;
+      } catch (error) {
+        console.error('[AUTH] Erro no cadastro:', error);
+        throw error;
+      }
     },
     [],
   );
