@@ -1,16 +1,48 @@
 // Patient bottom tabs — Home, Exercícios da Memória, Configurações
 import React from 'react';
-import { Tabs } from 'expo-router';
+import { Tabs, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { View, Platform, StyleSheet } from 'react-native';
+import { View, Platform, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useAuth } from '../../lib/auth';
 import { colors, fonts, radii } from '../../lib/theme';
 
 export default function PatientLayout() {
+  const { signOut } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    Alert.alert('Sair da conta', 'Tem certeza que deseja sair?', [
+      { text: 'Cancelar', style: 'cancel' },
+      {
+        text: 'Sair',
+        style: 'destructive',
+        onPress: async () => {
+          await signOut();
+          router.replace('/(auth)/login');
+        },
+      },
+    ]);
+  };
+
   return (
     <Tabs
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        headerStyle: {
+          backgroundColor: colors.bg,
+        },
+        headerShadowVisible: false,
+        headerRight: () => (
+          <TouchableOpacity
+            onPress={handleLogout}
+            style={styles.logoutButton}
+            testID="header-logout-button"
+          >
+            <Ionicons name="log-out-outline" size={24} color={colors.primary} />
+          </TouchableOpacity>
+        ),
+        headerTitle: '',
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textMuted,
         tabBarStyle: {
@@ -83,5 +115,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
+  },
+  logoutButton: {
+    marginRight: 16,
+    padding: 8,
   },
 });

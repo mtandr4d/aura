@@ -91,32 +91,44 @@ export default function PatientHome() {
   const next = useMemo(() => nextMedicationFromList(meds), [meds]);
 
   const sendSOS = async () => {
+    console.log('[SOS] Botão pressionado');
     Triggers.heavy();
     sounds.play('tap');
     Alert.alert(
       'Enviar SOS?',
       'Vamos avisar seu cuidador e família que você precisa de ajuda.',
       [
-        { text: 'Cancelar', style: 'cancel' },
+        { text: 'Cancelar', style: 'cancel', onPress: () => console.log('[SOS] Cancelado') },
         {
           text: 'SIM, ENVIAR',
           style: 'destructive',
           onPress: async () => {
+            console.log('[SOS] Confirmado, enviando...');
             setSending(true);
             try {
-              const coords = location || (await updateLocation());
-              await api.post('/sos', {
-                latitude: coords?.latitude,
-                longitude: coords?.longitude,
+              let coords = location;
+              if (!coords) {
+                console.log('[SOS] Localização não disponível, buscando...');
+                coords = await updateLocation();
+              }
+              console.log('[SOS] Enviando para API...', coords);
+              
+              const response = await api.post('/sos', {
+                latitude: coords?.latitude || null,
+                longitude: coords?.longitude || null,
                 message: 'SOS - preciso de ajuda',
               });
+              
+              console.log('[SOS] Resposta da API:', response.data);
               Triggers.success();
               sounds.play('success');
               Alert.alert('Pronto!', 'Sua família foi avisada. Fique tranquilo, você não está sozinho.');
-            } catch (e) {
+            } catch (e: any) {
+              console.error('[SOS] Erro ao enviar:', e);
+              console.error('[SOS] Detalhes do erro:', e.response?.data || e.message);
               Triggers.error();
               sounds.play('error');
-              Alert.alert('Erro', apiError(e));
+              Alert.alert('Erro ao enviar SOS', apiError(e) + '\n\nTente novamente ou peça ajuda presencialmente.');
             } finally {
               setSending(false);
             }
