@@ -11,15 +11,32 @@ export default function PatientLayout() {
   const { signOut } = useAuth();
   const router = useRouter();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    console.log('[LOGOUT] Botão pressionado');
     Alert.alert('Sair da conta', 'Tem certeza que deseja sair?', [
-      { text: 'Cancelar', style: 'cancel' },
+      { 
+        text: 'Cancelar', 
+        style: 'cancel',
+        onPress: () => console.log('[LOGOUT] Cancelado')
+      },
       {
         text: 'Sair',
         style: 'destructive',
         onPress: async () => {
-          await signOut();
-          router.replace('/(auth)/login');
+          try {
+            console.log('[LOGOUT] Confirmado, deslogando...');
+            const success = await signOut();
+            console.log('[LOGOUT] SignOut retornou:', success);
+            
+            // Force navigation to login
+            setTimeout(() => {
+              console.log('[LOGOUT] Navegando para login...');
+              router.replace('/(auth)/login');
+            }, 100);
+          } catch (error) {
+            console.error('[LOGOUT] Erro ao sair:', error);
+            Alert.alert('Erro', 'Não foi possível sair. Tente novamente.');
+          }
         },
       },
     ]);

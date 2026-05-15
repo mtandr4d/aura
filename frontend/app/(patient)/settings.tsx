@@ -13,17 +13,21 @@ import { AuraBackground } from '../../components/AuraBackground';
 import { AuraCard } from '../../components/AuraCard';
 import { AuraButton } from '../../components/AuraButton';
 import { sounds } from '../../lib/sounds';
+import { bgMusic } from '../../lib/background-music';
 
 export default function Settings() {
   const { user, signOut } = useAuth();
   const router = useRouter();
   const { isDark, toggleMode, colors, gradients } = useTheme();
   const [soundsOn, setSoundsOn] = useState(true);
+  const [musicOn, setMusicOn] = useState(false);
 
   useEffect(() => {
     (async () => {
       await sounds.init();
+      await bgMusic.init();
       setSoundsOn(sounds.isEnabled());
+      setMusicOn(bgMusic.isEnabled());
     })();
   }, []);
 
@@ -31,6 +35,14 @@ export default function Settings() {
     setSoundsOn(v);
     await sounds.setEnabled(v);
     if (v) sounds.play('success');
+  };
+
+  const toggleMusic = async (v: boolean) => {
+    setMusicOn(v);
+    await bgMusic.setEnabled(v);
+    if (v) {
+      sounds.play('success');
+    }
   };
 
   const confirmLogout = () => {
@@ -116,6 +128,23 @@ export default function Settings() {
                   onValueChange={toggle}
                   trackColor={{ false: '#E2E8F0', true: colors.primaryLight }}
                   thumbColor={Platform.OS === 'android' ? (soundsOn ? colors.primary : '#fff') : undefined}
+                  ios_backgroundColor="#E2E8F0"
+                />
+              </SettingRow>
+              <Divider />
+              <SettingRow
+                icon="musical-notes"
+                iconBg={isDark ? '#3D1F6E' : '#F3E8FF'}
+                iconColor={colors.purple}
+                title="Música de fundo"
+                subtitle="Música relaxante e calma"
+              >
+                <Switch
+                  testID="music-toggle"
+                  value={musicOn}
+                  onValueChange={toggleMusic}
+                  trackColor={{ false: '#E2E8F0', true: colors.primaryLight }}
+                  thumbColor={Platform.OS === 'android' ? (musicOn ? colors.primary : '#fff') : undefined}
                   ios_backgroundColor="#E2E8F0"
                 />
               </SettingRow>

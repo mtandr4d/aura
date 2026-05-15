@@ -82,9 +82,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 
   const signOut = useCallback(async () => {
-    await storage.removeItem('cm_token');
-    await storage.removeItem('cm_active_patient_id');
-    setUser(null);
+    try {
+      console.log('[AUTH] Iniciando logout...');
+      await storage.removeItem('cm_token');
+      await storage.removeItem('cm_user');
+      await storage.removeItem('cm_active_patient_id');
+      setUser(null);
+      console.log('[AUTH] Logout completo, usuário removido');
+      return true;
+    } catch (error) {
+      console.error('[AUTH] Erro no logout:', error);
+      return false;
+    }
   }, []);
 
   return (

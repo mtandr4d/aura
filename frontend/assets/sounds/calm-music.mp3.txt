@@ -1,0 +1,7 @@
+# Placeholder para música de fundo
+# Adicione aqui um arquivo MP3 de música relaxante
+# Sugestões:
+# - Piano suave
+# - Sons da natureza
+# - Música ambiente
+# - Duração: 2-3 minutos (vai loop)
